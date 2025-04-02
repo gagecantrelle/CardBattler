@@ -1,0 +1,61 @@
+{
+  "name": "cardbattler",
+  "version": "1.0.0",
+  "description": "A simple web game where you compete against a bot in Rock, Paper, Scissors and a 21-card challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx --watch Server/index.ts",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gagecantrelle/CardBattler.git"
+  },
+  "author": "Gage Cantrelle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gagecantrelle/CardBattler/issues"
+  },
+  "homepage": "https://github.com/gagecantrelle/CardBattler#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "@eslint/js": "^9.23.0",
+    "@types/body-parser": "^1.19.5",
+    "@types/eslint__js": "^9.14.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.1",
+    "babel-loader": "^10.0.0",
+    "eslint": "^9.23.0",
+    "eslint-webpack-plugin": "^5.0.0",
+    "html-webpack-plugin": "^5.6.3",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.29.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mysql2": "^3.14.0",
+    "nodemon": "^3.1.9",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "path": "^0.12.7",
+    "react": "^19.1.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^19.1.0"
+  }
+}
