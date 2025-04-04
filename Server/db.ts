@@ -27,4 +27,4 @@ async function runSQLFile() {
     console.error('❌ Error executing SQL file:', error);
   }
 }
-export default runSQLFile
+export default {runSQLFile, createDb}
