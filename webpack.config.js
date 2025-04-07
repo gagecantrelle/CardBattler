@@ -4,16 +4,19 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: path.join(__dirname, './Client', 'index.tsx'),
+  stats: {
+    excludeModules: /node_modules/,
+  },
+  entry: path.resolve(__dirname, './Client/index.tsx'),
   output: { filename: "bundle.js", path: path.join(__dirname, './Client/dist')},
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     plugins: [new TsconfigPathsPlugin()],
   },
   module: {
     rules: [
       {
-        test: /\.(js|tsx)$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         use: [{
           loader: "babel-loader",
           options: {
@@ -28,14 +31,10 @@ module.exports = {
         },
       ],
       exclude: /node_modules/,
-      },
-      // {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader'],
-      // }
+      }
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({template: path.join(__dirname, "./client", "index.html"),}),
+    new HtmlWebpackPlugin({template: path.join(__dirname, "./Client/index.html")}),
   ]
 };

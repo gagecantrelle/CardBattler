@@ -16,7 +16,8 @@ const users = db.createDb.define('users',{
   id:{
     type: DataTypes.STRING,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true,
   }, 
   user_name:{
     type: DataTypes.STRING,
@@ -40,7 +41,8 @@ const gameRPS = db.createDb.define('gameRPS',{
   id:{
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true,
   },
   user_id:{
     type: DataTypes.INTEGER,
@@ -69,7 +71,8 @@ const gameBJ = db.createDb.define('gameBJ',{
   id:{
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true,
   },
   user_id:{
     type: DataTypes.INTEGER,
@@ -94,7 +97,7 @@ const gameBJ = db.createDb.define('gameBJ',{
   timestamps: false 
 } )
 
-router.get('/Users', (req, res) => {
+router.get('/Users', (req: Request, res: Response) => {
   db.createDb.sync()
   .then(()=>{
     users.findAll()
@@ -112,7 +115,7 @@ router.get('/Users', (req, res) => {
   })
 });
 
-router.get('/GameRPS/:id', (req, res) => {
+router.get('/GameRPS/:id', (req: Request, res: Response) => {
   const {id} = req.params
 
   db.createDb.sync()
@@ -132,7 +135,7 @@ router.get('/GameRPS/:id', (req, res) => {
   })
 });
 
-router.get('/GameBJ/:id', (req, res) => {
+router.get('/GameBJ/:id', (req: Request, res: Response) => {
   const {id} = req.params
 
   db.createDb.sync()
@@ -152,6 +155,68 @@ router.get('/GameBJ/:id', (req, res) => {
   })
 });
 
+//when user is created also create gameBJ and gameRPS
+router.post('/CreateUser', async (req: Request, res: Response) => {
+
+const {user_name, google_id, ligthOrDark}: {user_name: String, google_id: Number, ligthOrDark: Boolean} = req.body
+
+db.createDb.sync()
+.then(async ()=>{
+await users.create({
+  user_name,
+  google_id,
+  ligthOrDark,
+})
+.then((userInfo)=>{
+  console.log(userInfo.dataValues.id)
+  gameRPS.create({
+    user_id: userInfo.dataValues.id,
+    highScore: 0,
+    win: 0,
+    lose: 0, 
+  })
+  .then(()=>{
+    gameBJ.create({
+      user_id: userInfo.dataValues.id,
+      highScore: 0,
+      win: 0,
+      lose: 0, 
+    })
+    .then(()=>{
+    })
+    .catch((err)=>{
+      console.error('❌ERROR CAN\'T CREATE GAMEBJ: ', err)
+      res.sendStatus(500)
+    }) 
+  })
+  .catch((err)=>{
+    console.error('❌ERROR CAN\'T CREATE GAMERPS: ', err)
+    res.sendStatus(500)
+  })
+  res.sendStatus(200);
+})
+.catch((err)=>{
+  console.error('❌ERROR CAN\'T CREATE USERS: ', err)
+  res.sendStatus(500)
+})
+
+
+
+
+})
+.catch((err)=>{
+  console.error('❌ERROR CAN\'T CONNECT TO USERS TABLE: ', err)
+  res.sendStatus(500)
+})
+
+})
+
+router.patch('/Users', (req: Request, res: Response) => {})
+router.patch('/Users', (req: Request, res: Response) => {})
+router.patch('/GameBJ', (req: Request, res: Response) => {})
+router.delete('/Users', (req: Request, res: Response) => {})
+router.delete('/Users', (req: Request, res: Response) => {})
+router.delete('/GameBJ', (req: Request, res: Response) => {})
 
 
 //  db.createDb.sync()
