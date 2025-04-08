@@ -183,6 +183,7 @@ await users.create({
       lose: 0, 
     })
     .then(()=>{
+      res.sendStatus(200);
     })
     .catch((err)=>{
       console.error('❌ERROR CAN\'T CREATE GAMEBJ: ', err)
@@ -193,30 +194,116 @@ await users.create({
     console.error('❌ERROR CAN\'T CREATE GAMERPS: ', err)
     res.sendStatus(500)
   })
-  res.sendStatus(200);
 })
 .catch((err)=>{
   console.error('❌ERROR CAN\'T CREATE USERS: ', err)
   res.sendStatus(500)
 })
-
-
-
-
 })
 .catch((err)=>{
   console.error('❌ERROR CAN\'T CONNECT TO USERS TABLE: ', err)
   res.sendStatus(500)
 })
-
 })
 
-router.patch('/Users', (req: Request, res: Response) => {})
-router.patch('/Users', (req: Request, res: Response) => {})
-router.patch('/GameBJ', (req: Request, res: Response) => {})
-router.delete('/Users', (req: Request, res: Response) => {})
-router.delete('/Users', (req: Request, res: Response) => {})
-router.delete('/GameBJ', (req: Request, res: Response) => {})
+router.patch('/ProfileUpdate/:id', (req: Request, res: Response) => {
+  const {user_name, ligthOrDark}: {user_name: String, ligthOrDark: Boolean} = req.body
+  const {id} = req.params
+
+  db.createDb.sync()
+  .then(()=>{
+    users.update({user_name, ligthOrDark},{where: {id}})
+    .then(()=>{
+      res.sendStatus(200);
+    })
+    .catch((err)=>{
+      console.error('❌ERROR CAN\'T FIND USERS TABLE TO UPDATE: ', err)
+      res.sendStatus(500)
+    })
+  })
+  .catch((err)=>{
+    console.error('❌ERROR CAN\'T UPDATE USERS TABLE: ', err)
+    res.sendStatus(500)
+  })
+})
+
+router.patch('/RPSUpdate/:id', (req: Request, res: Response) => {
+  const {highScore, win, lose}: {highScore: Number, win: Number, lose: Number} = req.body
+  const {id} = req.params
+
+  db.createDb.sync()
+  .then(()=>{
+    gameRPS.update({highScore, win, lose},{where: {user_id: id}})
+    .then(()=>{
+      res.sendStatus(200);
+    })
+    .catch((err)=>{
+      console.error('❌ERROR CAN\'T FIND GAMERPS TABLE TO UPDATE: ', err)
+      res.sendStatus(500)
+    })
+  })
+  .catch((err)=>{
+    console.error('❌ERROR CAN\'T UPDATE GAMERPS TABLE: ', err)
+    res.sendStatus(500)
+  })
+})
+
+router.patch('/BJUpdate/:id', (req: Request, res: Response) => {
+  const {highScore, win, lose}: {highScore: Number, win: Number, lose: Number} = req.body
+  const {id} = req.params
+
+  db.createDb.sync()
+  .then(()=>{
+    gameBJ.update({highScore, win, lose},{where: {user_id: id}})
+    .then(()=>{
+      res.sendStatus(200);
+    })
+    .catch((err)=>{
+      console.error('❌ERROR CAN\'T FIND GAMEBJ TABLE TO UPDATE: ', err)
+      res.sendStatus(500)
+    })
+  })
+  .catch((err)=>{
+    console.error('❌ERROR CAN\'T UPDATE GAMEBJ TABLE: ', err)
+    res.sendStatus(500)
+  })
+})
+
+router.delete('/DeleteAccount/:id', (req: Request, res: Response) => {
+  const {id} = req.params
+
+  db.createDb.sync()
+  .then(()=>{
+    gameRPS.destroy({where:{user_id: id}})
+    .then(()=>{
+      gameBJ.destroy({where:{user_id: id}})
+      .then(()=>{
+        users.destroy({where:{id}})
+        .then(()=>{
+          res.sendStatus(200);
+        })
+        .catch((err)=>{
+          console.error('❌ERROR CAN\'T FIND USERS TABLE', err)
+          res.sendStatus(500)
+        })
+    })
+    .catch((err)=>{
+      console.error('❌ERROR CAN\'T FIND GAMEBJ TABLE', err)
+      res.sendStatus(500)
+      })
+    .catch((err)=>{
+    console.error('❌ERROR CAN\'T FIND GAMERPS TABLE', err)
+    res.sendStatus(500)
+    })
+  })
+  .catch((err)=>{
+    console.error('❌ERROR CAN\'T DELETE THIS USER TABLES: ', err)
+    res.sendStatus(500)
+  })
+})
+})
+// router.delete('/GameRPS', (req: Request, res: Response) => {})
+// router.delete('/GameBJ', (req: Request, res: Response) => {})
 
 
 //  db.createDb.sync()
