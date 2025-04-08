@@ -97,10 +97,12 @@ const gameBJ = db.createDb.define('gameBJ',{
   timestamps: false 
 } )
 
-router.get('/Users', (req: Request, res: Response) => {
+router.get('/Users/:id', (req: Request, res: Response) => {
+  const {id} = req.params
+
   db.createDb.sync()
   .then(()=>{
-    users.findAll()
+    users.findOne({where:{google_id: id}})
     .then((result)=>{
       res.status(200).send(result);
     })
@@ -157,7 +159,6 @@ router.get('/GameBJ/:id', (req: Request, res: Response) => {
 
 //when user is created also create gameBJ and gameRPS
 router.post('/CreateUser', async (req: Request, res: Response) => {
-
 const {user_name, google_id, ligthOrDark}: {user_name: String, google_id: Number, ligthOrDark: Boolean} = req.body
 
 db.createDb.sync()
@@ -168,7 +169,6 @@ await users.create({
   ligthOrDark,
 })
 .then((userInfo)=>{
-  console.log(userInfo.dataValues.id)
   gameRPS.create({
     user_id: userInfo.dataValues.id,
     highScore: 0,
