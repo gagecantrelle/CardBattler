@@ -18,3 +18,13 @@ Draws from a 20-card deck with 2 copies of each card, ranging from 1 to 10. The 
 card total value that equal to 21 or close to it. If the Value goes over 21, they lose
 
 # setup
+
+-GoogleAuth
+for you to use this work you need a Google id key and Google secrete key. For this you need to go to this link https://console.cloud.google.com/apis/dashboard
+then login to your google account, if your not all-ready log in .Click the Credentials, This will bring up your credentials page
+that will hold all your api keys and secret keys. On the top of the page click the +credentials button and select OAuth.
+Then place in the flowing
+-Application Type: Web Application
+-Name: any name you want
+-Authorized JavaScript Origins: your http://localhost:(what ever port your using)
+-Authorized Redirect URLS: http://localhost:(what ever port your using)/auth/google/callback
