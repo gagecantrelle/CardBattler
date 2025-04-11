@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import axios from "axios"
 import "./styles/style.css"
 import LogIn from "./logIn";
@@ -8,6 +8,7 @@ import Home from "./home";
 function App({googleId}: {googleId: String}) {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
 const [user, setUser] = useState({})
+const navigate = useNavigate();
 
 const getUser = (): void => {
 axios.get(`Users/${googleId}`)
@@ -22,9 +23,18 @@ axios.get(`Users/${googleId}`)
    useEffect(() => {
     getUser()
 
+    axios.get('/api/user')
+    .then((data)=>{
+      console.log('called', data)
+    })
+    .catch((err)=>{
+      console.error(err)
+    })
+
+
    const screenCheck = () =>{
     const curHeight = window.innerHeight
-
+   
     if(curHeight !== screenHeight){
       setScreenHeight(curHeight)
     }
@@ -35,7 +45,7 @@ axios.get(`Users/${googleId}`)
    return()=>{
     window.removeEventListener("resize", screenCheck)
    }
-  }, [screenHeight])
+  },[])
 
   return (
   //  <div style={{ backgroundColor: "blue", width: "150px", height: `${screenHeight}px`, position: 'fixed', top: '0px', left: '0px'}}>

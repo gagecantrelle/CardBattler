@@ -8,6 +8,7 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 
 
+
 dotenv.config();
 
 const app = express()
@@ -20,21 +21,20 @@ const isLoggedIn = (req: any, res: any, next: any) =>{
 }
 
 app.use(express.json())
-app.use(router)
-app.use(express.static(DIST_PATH))
-
 app.use(
   session({
     secret: 'your_session_secret',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 365},
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(router)
+app.use(express.static(DIST_PATH))
 interface User {
   id: number;
   google_id: string | number;
@@ -49,23 +49,25 @@ passport.use(new GoogleStrategy(
     clientSecret: GOOGLE_CLIENT_SECRET as string,
     callbackURL: "http://localhost:8080/auth/google/callback",
   },
-  function(accessToken: String, refreshToken: String, profile: Profile, cb: (err: any, user?: Express.User) => void) {
-    console.log('my google profile', profile)
-      return cb(null, profile)
+  function(accessToken: String, refreshToken: String, profile: Profile, cb: (err: User, user?: Express.User | false) => void) {
+    const userSession = {
+      google_id: profile.id,
+      user_name: profile.displayName,
+      ligthOrDark: true
+    };
+      return cb(null, userSession)
   }
 ));
 
 
-passport.serializeUser((user, doneCB) => {
+passport.serializeUser((user: User, doneCB) => {
   doneCB(null, user);
 });
 
 
 passport.deserializeUser((user, doneCB) => {
-  doneCB(null, user);
+  doneCB(null, user)
 });
-
-
 
 app.get('/auth/google',
   passport.authenticate('google', {
@@ -76,11 +78,18 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback',
   passport.authenticate('google', 
-    { failureRedirect: '/login'}),
-      (req, res) => {
-        res.redirect('/Home');
-      }
+    { failureRedirect: '/login',
+      successRedirect: '/'
+    })
 );
+
+app.get('/api/user', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ user: req.user });
+  } else {
+    res.status(401).json({ user: null, message: 'Not authenticated'});
+  }
+});
 
 app.listen(port, ()=>{
   console.log(`listing on port ${port}`)
