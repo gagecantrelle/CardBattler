@@ -8,7 +8,7 @@ module.exports = {
     excludeModules: /node_modules/,
   },
   entry: path.resolve(__dirname, './Client/index.tsx'),
-  output: { filename: "bundle.js", path: path.join(__dirname, './Client/dist')},
+  output: { filename: "bundle.js", path: path.join(__dirname, './Client/dist'),  publicPath: '/'},
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     plugins: [new TsconfigPathsPlugin()],
@@ -38,7 +38,7 @@ module.exports = {
           use: ['style-loader', 'css-loader', 'postcss-loader']
       }
     ]
-  },
+  },  
   plugins: [
     new HtmlWebpackPlugin({template: path.join(__dirname, "./Client/index.html")}),
   ]
