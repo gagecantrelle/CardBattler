@@ -8,7 +8,7 @@ USE cardBattle;
 CREATE Table IF NOT EXISTS users (
   id INT PRIMARY KEY AUTO_INCREMENT ,
   user_name VARCHAR (255),
-  google_id VARCHAR (225),
+  google_id VARCHAR (225), --add unique back later, serve crash because it trying to run the code two time
   ligthOrDark BOOLEAN
 );
 
