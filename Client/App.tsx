@@ -5,32 +5,29 @@ import "./styles/style.css"
 import LogIn from "./logIn";
 import Home from "./home";
 
-function App({googleId}: {googleId: String}) {
+function App() {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
 const [user, setUser] = useState({})
 const navigate = useNavigate();
 
-const getUser = (): void => {
-axios.get(`Users/${googleId}`)
+const getOrCreateUser = (): void => {
+  axios.get('/api/user')
+  .then(({data})=>{
+  axios.get(`Users/${data.user.google_id}`)
 .then(({data})=>{
-
+setUser(data)
 })
 .catch((err)=>{
   console.error('❌ERROR SOMETHING IS WRONG WITH THIS ID: ', err)
 })
+  })
+  .catch((err)=>{
+    console.error(err)
+  })
 }
 
    useEffect(() => {
-    getUser()
-
-    axios.get('/api/user')
-    .then((data)=>{
-      console.log('called', data)
-    })
-    .catch((err)=>{
-      console.error(err)
-    })
-
+    getOrCreateUser()
 
    const screenCheck = () =>{
     const curHeight = window.innerHeight

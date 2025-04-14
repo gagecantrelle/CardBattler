@@ -25,7 +25,8 @@ const users = db.createDb.define('users',{
   }, 
   google_id:{
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   }, 
   ligthOrDark:{
     type: DataTypes.BOOLEAN,
@@ -314,4 +315,4 @@ router.delete('/DeleteAccount/:id', (req: Request, res: Response) => {
 
 
 
-export default router
+export default {router, users, gameBJ, gameRPS}

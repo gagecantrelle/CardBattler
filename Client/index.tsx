@@ -9,7 +9,7 @@ const root = createRoot(div);
 root.render(
   <React.StrictMode>
   <BrowserRouter>
-        <App  googleId="fakeId"/>
+        <App />
   </BrowserRouter>
   </React.StrictMode>
 );

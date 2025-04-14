@@ -1,11 +1,12 @@
 import express from 'express'
 import db from './db'
-import router from './routes';
+import obj from './routes';
 import path, { dirname } from 'path';
 import passport from 'passport';
 import { Strategy as GoogleStrategy, Profile } from 'passport-google-oauth20';
 import session from 'express-session';
 import dotenv from 'dotenv';
+import axios from 'axios';
 
 
 
@@ -33,14 +34,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(router)
+app.use(obj.router)
 app.use(express.static(DIST_PATH))
 interface User {
   id: number;
   google_id: string | number;
   user_name: string | null;
   ligthOrDark: boolean;
-
+ real: boolean;
 }
 
 passport.use(new GoogleStrategy(
@@ -50,13 +51,27 @@ passport.use(new GoogleStrategy(
     callbackURL: "http://localhost:8080/auth/google/callback",
   },
   function(accessToken: String, refreshToken: String, profile: Profile, cb: (err: User, user?: Express.User | false) => void) {
-    const userSession = {
-      google_id: profile.id,
-      user_name: profile.displayName,
-      ligthOrDark: true
-    };
+    obj.users.findOne({where:{google_id: profile.id}})
+    .then((data)=>{
+      const userSession = {
+        google_id: profile.id,
+        user_name: profile.displayName,
+        ligthOrDark: true,
+        real: data === null ? false : true
+      };
       return cb(null, userSession)
+    })
+    .catch((err)=>{
+      const userSession = {
+        google_id: profile.id,
+        user_name: profile.displayName,
+        ligthOrDark: true,
+        real: false
+      };
+      return cb(null, userSession)
+    })  
   }
+  
 ));
 
 
