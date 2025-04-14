@@ -2,13 +2,13 @@ CREATE DATABASE IF NOT EXISTS cardBattle;
 
 USE cardBattle;
 
-ALTER TABLE users
-ADD CONSTRAINT unique_google_id UNIQUE (google_id);
+-- ALTER TABLE users
+-- ADD CONSTRAINT unique_google_id UNIQUE (google_id);
 
 CREATE Table IF NOT EXISTS users (
   id INT PRIMARY KEY AUTO_INCREMENT ,
   user_name VARCHAR (255),
-  google_id VARCHAR (225) UNIQUE,
+  google_id VARCHAR (225),
   ligthOrDark BOOLEAN
 );
 

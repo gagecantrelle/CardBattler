@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-import "../styles/style.css"
+import "../../styles/style.css"
 
 
-function Profile() {
+function ProfileEdit() {
 
   return (
 <div >
@@ -15,4 +15,4 @@ Home
 }
 
 
-export default Profile;
+export default ProfileEdit;

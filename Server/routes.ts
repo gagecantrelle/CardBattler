@@ -26,7 +26,7 @@ const users = db.createDb.define('users',{
   google_id:{
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    // unique: true
   }, 
   ligthOrDark:{
     type: DataTypes.BOOLEAN,

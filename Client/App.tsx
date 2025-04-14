@@ -8,9 +8,8 @@ import Home from "./home";
 function App() {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
 const [user, setUser] = useState({})
-const navigate = useNavigate();
 
-const getOrCreateUser = (): void => {
+const get = (): void => {
   axios.get('/api/user')
   .then(({data})=>{
   axios.get(`Users/${data.user.google_id}`)
@@ -26,9 +25,31 @@ setUser(data)
   })
 }
 
-   useEffect(() => {
-    getOrCreateUser()
+const checkUser = (): void =>{
+  axios.get('/api/user')
+  .then(({data})=>{
+    let user = data.user
+    if(user.real){
+    setUser({user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark})
+    }else{
+      axios.post('/CreateUser',{user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark})
+      .then(()=>{
+        setUser({user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark})
+      })
+      .then((err)=>{
+        console.error('ERROR CAN\'T CREATE NEW ACCOUNT: ', err)
+      })
+    }
+  })
+  .catch((err)=>{
+    console.error('❌ERROR NO USER IN SESSION: ', err)
+  })
+}
 
+   useEffect(() => {
+    if(!user.user_name){
+checkUser()
+    }
    const screenCheck = () =>{
     const curHeight = window.innerHeight
    
@@ -58,9 +79,10 @@ setUser(data)
   // </div>
   <Routes>
  <Route path="/" element={<Navigate to="/login" replace />} />
+ {user.user_name && <Route path="/login" element={<Navigate to="/home" replace />} />}
+ <Route path='/login' element={<LogIn />} errorElement={<div>404 Not Found</div>} />
 
- <Route path='/login' element={<LogIn />} />
- <Route path='/Home' element={<Home />} />
+ <Route path='/Home' element={<Home user={user}/>} errorElement={<div>404 Not Found</div>}/>
   </Routes>
   );
 }
