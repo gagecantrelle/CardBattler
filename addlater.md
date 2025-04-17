@@ -1,0 +1,3 @@
+-- ALTER TABLE users
+-- ADD CONSTRAINT unique_google_id UNIQUE (google_id);
+--add unique back later, serve crash because it trying to run the code two time

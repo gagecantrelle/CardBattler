@@ -8,29 +8,21 @@ import Home from "./home";
 function App() {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
 const [user, setUser] = useState({})
-
-const get = (): void => {
-  axios.get('/api/user')
-  .then(({data})=>{
-  axios.get(`Users/${data.user.google_id}`)
-.then(({data})=>{
-setUser(data)
-})
-.catch((err)=>{
-  console.error('❌ERROR SOMETHING IS WRONG WITH THIS ID: ', err)
-})
-  })
-  .catch((err)=>{
-    console.error(err)
-  })
-}
+const [darkmode, setDarkmod] = useState(true)
 
 const checkUser = (): void =>{
   axios.get('/api/user')
   .then(({data})=>{
     let user = data.user
     if(user.real){
-    setUser({user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark})
+      axios.get(`Users/${data.user.google_id}`)
+      .then(({data})=>{
+      setUser(data)
+      setDarkmod(data.lightOrDark)
+      })
+      .catch((err)=>{
+        console.error('❌ERROR SOMETHING IS WRONG WITH THIS ID: ', err)
+      })
     }else{
       axios.post('/CreateUser',{user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark})
       .then(()=>{
@@ -63,7 +55,7 @@ checkUser()
    return()=>{
     window.removeEventListener("resize", screenCheck)
    }
-  },[])
+  },[checkUser])
 
   return (
   //  <div style={{ backgroundColor: "blue", width: "150px", height: `${screenHeight}px`, position: 'fixed', top: '0px', left: '0px'}}>
@@ -78,11 +70,12 @@ checkUser()
   //    <button>Game BJ</button>
   // </div>
   <Routes>
+    {}
  <Route path="/" element={<Navigate to="/login" replace />} />
  {user.user_name && <Route path="/login" element={<Navigate to="/home" replace />} />}
  <Route path='/login' element={<LogIn />} errorElement={<div>404 Not Found</div>} />
 
- <Route path='/Home' element={<Home user={user}/>} errorElement={<div>404 Not Found</div>}/>
+ <Route path='/Home' element={<Home user={user} refresh={checkUser} darkmode={darkmode}/>} errorElement={<div>404 Not Found</div>}/>
   </Routes>
   );
 }

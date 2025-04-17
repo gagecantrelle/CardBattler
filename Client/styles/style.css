@@ -1,1 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --front-bubblegum:'Bubblegum Sans', 'cursive'
+}
+
+@layer base{
+  div {
+@apply font-[bubblegum]
+  }
+  .dark div{
+    @apply text-neutral-100
+  }
+}

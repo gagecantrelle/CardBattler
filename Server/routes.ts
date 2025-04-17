@@ -123,7 +123,7 @@ router.get('/GameRPS/:id', (req: Request, res: Response) => {
 
   db.createDb.sync()
   .then(()=>{
-    gameRPS.findOne({where:{id: id}})
+    gameRPS.findOne({where:{user_id: id}})
     .then((result)=>{
       res.status(200).send(result);
     })
@@ -143,7 +143,7 @@ router.get('/GameBJ/:id', (req: Request, res: Response) => {
 
   db.createDb.sync()
   .then(()=>{
-    gameBJ.findOne({where:{id: id}})
+    gameBJ.findOne({where:{user_id: id}})
     .then((result)=>{
       res.status(200).send(result);
     })
@@ -210,7 +210,7 @@ await users.create({
 router.patch('/ProfileUpdate/:id', (req: Request, res: Response) => {
   const {user_name, ligthOrDark}: {user_name: String, ligthOrDark: Boolean} = req.body
   const {id} = req.params
-
+  console.log('update', ligthOrDark)
   db.createDb.sync()
   .then(()=>{
     users.update({user_name, ligthOrDark},{where: {id}})
