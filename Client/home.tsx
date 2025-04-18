@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from "axios"
 import "./styles/style.css"
-import Profile from "./componets/Profile/profile";
+import Profile from "./components/Profile/profile";
 
 function Home({user, refresh, darkmode}: {user: Object, refresh: void, darkmode: Boolean}) {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
@@ -37,12 +37,12 @@ getGameData()
     <button onClick={()=>{ 
       let test = profilrTrue ? false : true
       setProfileTrue(test)}}
-      className={`hover:${darkmode ? 'text-neutral-900': 'text-white' } top-27 left-18 absolute font-[bubblegum] ${user.lightOrDark ? 'text-neutral-900' : 'text-neutral-100'}`}>Profile</button>
-    <button className="hover:text-white top-47 left-18 absolute font-[bubblegum] dark:text-neutral-100">Game RPS</button>
-      <button className="hover:text-white top-67 left-18 absolute font-[bubblegum] dark:text-neutral-100">Game BJ</button>
+      className={`top-27 left-18 absolute font-[bubblegum] ${darkmode ? 'light': 'dark'}`}>Profile</button>
+    <button className={`top-47 left-18 absolute font-[bubblegum] ${darkmode ? 'light': 'dark'}`}>Game RPS</button>
+      <button className={`top-67 left-18 absolute font-[bubblegum] ${darkmode ? 'light': 'dark'}`}>Game BJ</button>
       
    </div>
-   <div className={`fixed top-0 left-50`}>{profilrTrue && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh}/>}</div>
+   <div className={`fixed top-0 left-50`}>{profilrTrue && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh} darkmode={darkmode}/>}</div>
 </div>
   
  

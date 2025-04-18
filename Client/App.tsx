@@ -5,6 +5,7 @@ import "./styles/style.css"
 import LogIn from "./logIn";
 import Home from "./home";
 
+
 function App() {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
 const [user, setUser] = useState({})
@@ -18,7 +19,7 @@ const checkUser = (): void =>{
       axios.get(`Users/${data.user.google_id}`)
       .then(({data})=>{
       setUser(data)
-      setDarkmod(data.lightOrDark)
+      setDarkmod(data.ligthOrDark)
       })
       .catch((err)=>{
         console.error('❌ERROR SOMETHING IS WRONG WITH THIS ID: ', err)
@@ -39,6 +40,7 @@ const checkUser = (): void =>{
 }
 
    useEffect(() => {
+    
     if(!user.user_name){
 checkUser()
     }
@@ -58,23 +60,10 @@ checkUser()
   },[checkUser])
 
   return (
-  //  <div style={{ backgroundColor: "blue", width: "150px", height: `${screenHeight}px`, position: 'fixed', top: '0px', left: '0px'}}>
-  //   <button>Profile</button>
-  //   <button>Game RPS</button>
-  //   <button>Game BJ</button>
-  //  </div>
-  
-  // <div className={`bg-blue-500 w-50 fixed top-0 left-0`} style={{  height: `${screenHeight}px`}}>
-  //   <button>Profile</button>
-  //    <button>Game RPS</button>
-  //    <button>Game BJ</button>
-  // </div>
   <Routes>
-    {}
  <Route path="/" element={<Navigate to="/login" replace />} />
  {user.user_name && <Route path="/login" element={<Navigate to="/home" replace />} />}
  <Route path='/login' element={<LogIn />} errorElement={<div>404 Not Found</div>} />
-
  <Route path='/Home' element={<Home user={user} refresh={checkUser} darkmode={darkmode}/>} errorElement={<div>404 Not Found</div>}/>
   </Routes>
   );

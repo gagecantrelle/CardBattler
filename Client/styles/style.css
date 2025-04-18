@@ -12,7 +12,13 @@
   div {
 @apply font-[bubblegum]
   }
-  .dark div{
-    @apply text-neutral-100
+
+  .dark{
+    @apply text-neutral-100 hover:text-neutral-900
   }
+
+  .light{
+    @apply text-neutral-900 hover:text-neutral-100
+  }
+
 }
