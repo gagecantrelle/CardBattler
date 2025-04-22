@@ -3,9 +3,11 @@ import {useNavigate} from 'react-router-dom';
 import axios from "axios"
 import "./styles/style.css"
 import Profile from "./components/Profile/profile";
+import backGround from './styles/images/wood_Block_texture.png'
 
 function Home({user, refresh, darkmode}: {user: Object, refresh: void, darkmode: Boolean}) {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
+const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 const [profilrTrue, setProfileTrue] = useState(false)
 const [RPS, setRPS] = useState({})
 const [BJ, setBJ] = useState({})
@@ -33,13 +35,14 @@ getGameData()
 },[])
   return (
 <div >
+  <img src={backGround} style={{  height: `${screenHeight}px`, width: `${screenWidth}px`}} ></img>
  <div className={`bg-linear-to-r from-cyan-500 to-blue-500 w-50 fixed top-0 left-0`} style={{  height: `${screenHeight}px`}}>
     <button onClick={()=>{ 
       let test = profilrTrue ? false : true
       setProfileTrue(test)}}
-      className={`top-27 left-18 absolute font-[bubblegum] ${darkmode ? 'light': 'dark'}`}>Profile</button>
-    <button className={`top-47 left-18 absolute font-[bubblegum] ${darkmode ? 'light': 'dark'}`}>Game RPS</button>
-      <button className={`top-67 left-18 absolute font-[bubblegum] ${darkmode ? 'light': 'dark'}`}>Game BJ</button>
+      className={`top-27 left-18 absolute font-[bubblegum] ${darkmode ? 'lightButton': 'darkButton'}`}>Profile</button>
+    <button className={`top-47 left-18 absolute font-[bubblegum] ${darkmode ? 'lightButton': 'darkButton'}`}>Game RPS</button>
+      <button className={`top-67 left-18 absolute font-[bubblegum] ${darkmode ? 'lightButton': 'darkButton'}`}>Game BJ</button>
       
    </div>
    <div className={`fixed top-0 left-50`}>{profilrTrue && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh} darkmode={darkmode}/>}</div>

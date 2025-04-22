@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-import {Button} from 'antd'
+import {Button, Card} from 'antd'
 import "../../styles/style.css"
 
 function Profile({user, RPS, BJ, refresh, darkmode}: {user: Object, RPS: Object, BJ: Object, refresh: void, darkmode: Boolean}) {
@@ -20,15 +20,12 @@ axios.patch(`/ProfileUpdate/${user.id}`,{user_name: name, ligthOrDark: darkmode 
   useEffect(()=>{
   },[])
   return (
-<div className="border-4 border-double border-cyan-500 w-60">
-  <div className="border-4 border-double border-blue-500 w-58 bg-green-500">
-  <div>Image</div>
-  <Button color="cyan" variant="text">
-            Filled
-          </Button>
-<div className={`underline decoration-solid ${darkmode ? 'light': 'dark'}`}>{user.user_name}</div>
-<button className={`${darkmode ? 'light': 'dark'}`} onClick={()=>{ update()}}>mode: {darkmode ? 'Light' : 'Dark'}</button>
-<div className="rounded-xl border-2 border-solid border-cyan-500">
+<div className="absolute left-80 top-50">
+    <Card cover={<div className={`${darkmode ? 'lightName': 'darkName'} bg-linear-to-r from-cyan-500 to-blue-500 h-15 text-4xl`} style={{width: '600px',}}>
+      <p className={`absolute top-4 ${darkmode ? 'light': 'dark'}`}>{user.user_name}</p>
+      </div>}>
+<button className={`${darkmode ? 'lightButton': 'darkButton'}`} onClick={()=>{ update()}}>mode: {darkmode ? 'Light' : 'Dark'}</button>
+<div>
 <div className={`underline decoration-solid ${darkmode ? 'light': 'dark'}`}>Rock, Paper, Scissors</div>
 <div className="flex justify-start">
 <div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'}`}>HighScore: {RPS.highScore}</div>
@@ -37,18 +34,16 @@ axios.patch(`/ProfileUpdate/${user.id}`,{user_name: name, ligthOrDark: darkmode 
 </div>
 
 </div>
-<div className="rounded-xl border-2 border-solid border-cyan-500">
+<div>
 <div className={`underline decoration-solid ${darkmode ? 'light': 'dark'}`}>BlackJacks</div>
 <div className="flex justify-start">
-<div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'}`}>HighScore: {BJ.highScore}</div>
-<div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'}`}>Win: {BJ.win}</div>
-<div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'}`}>Lose: {BJ.lose}</div>
+<div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'} hover:disabled`}>HighScore: {BJ.highScore}</div>
+<div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'} hover:disabled`}>Win: {BJ.win}</div>
+<div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'} hover:disabled`}>Lose: {BJ.lose}</div>
 </div>
 </div>
+</Card>
   </div>
-</div>
-  
- 
   );
 }
 

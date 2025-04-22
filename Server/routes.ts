@@ -210,7 +210,6 @@ await users.create({
 router.patch('/ProfileUpdate/:id', (req: Request, res: Response) => {
   const {user_name, ligthOrDark}: {user_name: String, ligthOrDark: Boolean} = req.body
   const {id} = req.params
-  console.log('update', ligthOrDark)
   db.createDb.sync()
   .then(()=>{
     users.update({user_name, ligthOrDark},{where: {id}})
