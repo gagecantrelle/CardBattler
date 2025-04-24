@@ -21,7 +21,7 @@ function LogIn() {
     <div style={{backgroundImage: `url(${backGround})`, height: `${screenHeight}px`, width: `${screenWidth}px`}}>
 <div className="w-screen h-screen flex justify-center items-center">
 <div className="size-60 rounded-full bg-linear-to-r from-cyan-500 to-blue-500">
-<a className={`top-27 left-10 relative font-[bubblegum] text-3xl ${nightTime ? 'dark' : 'light'}`} href="/auth/google">logIn/signUp</a>
+<a className={`top-27 left-10 relative font-[bubblegum] text-3xl ${nightTime ? 'darkButton' : 'lightButton'}`} href="/auth/google">logIn/signUp</a>
 </div>
 </div>
 </div>

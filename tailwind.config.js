@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         bubblegum: ['"Bubblegum Sans"', 'cursive'],
       },
+      colors:{
+        softblue: '#B9D6F2'
+      }
     },
   },
 };
