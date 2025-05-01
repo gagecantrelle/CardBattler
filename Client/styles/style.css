@@ -29,4 +29,7 @@
     @apply text-neutral-900 font-[bubblegum];
   }
 
+  .dropOff{
+    @apply absolute left-80 top-50 border-2 border-dashed w-20 h-20
+  }
 }

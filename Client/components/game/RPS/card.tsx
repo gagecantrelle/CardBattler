@@ -15,10 +15,9 @@ function CardRPS({id, text}: {id: Number, text: String}) {
     <div
       ref={drag} // This connects the div to the drag source
       style={{
-        background: isDragging ? "pink" : "blue",
-        width: "50px",
-        height: "20px",
+        background: isDragging ? "" : "white",
       }}
+      className="rounded-xl w-20 h-20"
     >
       {text} drag me
     </div>
