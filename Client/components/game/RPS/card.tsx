@@ -6,6 +6,7 @@ import {useDrag} from 'react-dnd'
 function CardRPS({id, text}: {id: Number, text: String}) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "div", // Type can be anything, it's just a label for the drag item
+    item: {id},
     collect: (monitor) => ({
       isDragging: monitor.isDragging(), // Correct way to use monitor
     }),
@@ -16,10 +17,11 @@ function CardRPS({id, text}: {id: Number, text: String}) {
       ref={drag} // This connects the div to the drag source
       style={{
         background: isDragging ? "" : "white",
+        color: isDragging ? "transparent" : "",
       }}
-      className="rounded-xl w-20 h-20"
+      className="rounded-xl w-20 h-30 text-center flex items-center justify-center"
     >
-      {text} drag me
+      {text}
     </div>
   );
 }

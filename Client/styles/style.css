@@ -30,6 +30,6 @@
   }
 
   .dropOff{
-    @apply absolute left-80 top-50 border-2 border-dashed w-20 h-20
+    @apply border-2 border-dashed w-20 h-30 text-center flex items-center justify-center
   }
 }

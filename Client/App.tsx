@@ -8,6 +8,7 @@ import Home from "./home";
 
 function App() {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
+const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 const [user, setUser] = useState({})
 const [darkmode, setDarkmod] = useState(true)
 
@@ -46,9 +47,13 @@ checkUser()
     }
    const screenCheck = () =>{
     const curHeight = window.innerHeight
-   
+    const curWidth = window.innerWidth
+
     if(curHeight !== screenHeight){
       setScreenHeight(curHeight)
+    }
+    if(curWidth !== window.innerWidth){
+      setScreenWidth(curWidth)
     }
    }
 
@@ -64,7 +69,7 @@ checkUser()
  <Route path="/" element={<Navigate to="/login" replace />} />
  {user.user_name && <Route path="/login" element={<Navigate to="/home" replace />} />}
  <Route path='/login' element={<LogIn />} errorElement={<div>404 Not Found</div>} />
- <Route path='/Home' element={<Home user={user} refresh={checkUser} darkmode={darkmode}/>} errorElement={<div>404 Not Found</div>}/>
+ <Route path='/Home' element={<Home user={user} refresh={checkUser} darkmode={darkmode} height={screenHeight} width={screenWidth}/>} errorElement={<div>404 Not Found</div>}/>
   </Routes>
   );
 }

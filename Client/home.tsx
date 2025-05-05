@@ -6,7 +6,7 @@ import Profile from "./components/Profile/profile";
 import GameRPS from "./components/game/RPS/RPS";
 import backGround from './styles/images/wood_Block_texture.png'
 
-function Home({user, refresh, darkmode}: {user: Object, refresh: void, darkmode: Boolean}) {
+function Home({user, refresh, darkmode, height, width}: {user: Object, refresh: void, darkmode: Boolean, height: number, width: number}) {
 const [screenHeight, setScreenHeight] = useState(window.innerHeight)
 const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 const [RPS, setRPS] = useState({})
@@ -34,9 +34,10 @@ const getGameData = (): void =>{
 useEffect(()=>{
 getGameData()
 },[])
+// height: `${screenHeight}px`, width: `${screenWidth}px`
   return (
 <div >
-  <img src={backGround} style={{  height: `${screenHeight}px`, width: `${screenWidth}px`}} ></img>
+  <img src={backGround} style={{height: `${height}px`,  width: `${width}px`}} ></img>
  <div className={`bg-linear-to-r from-cyan-500 to-blue-500 w-50 fixed top-0 left-0`} style={{  height: `${screenHeight}px`}}>
     <button onClick={()=>{ 
      if(active === 'profile'){
