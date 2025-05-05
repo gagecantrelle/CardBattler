@@ -14,6 +14,9 @@ function DragAndDrop() {
   const [botCard, setBotCard] = useState('')
   const [playerScore, setPlayerScore] = useState(0)
   const [botScore, setBotScore] = useState(0)
+  const [rounds, setRounds] = useState(3)
+  const [round, setRound] = useState(1)
+  const [highScore, setHighScore] = useState(0)
   const [disabledButton, setDisabledButton] = useState(false);
   const [{isOver}, drop] = useDrop(()=>({
     accept: 'div',
@@ -77,11 +80,11 @@ const botTurn = (): void =>{
             setPlayerScore(playerScore + 1)
             }
     
-    else{
-      console.log('tie')
-    }
 
     setTimeout(() => {
+      // if(round === rounds){
+      //   setRound(1)
+      // }
     setBoard('')
     setBotCard('')
     setDisabledButton(false)
@@ -92,7 +95,9 @@ const botTurn = (): void =>{
 <>
 <div className="rounded-xl w-20 h-30 relative left-20 bg-white">
 <div>you: {playerScore}</div>
-<div>bot: {botScore}</div>  
+<div>bot: {botScore}</div>
+<div>winner is</div>
+<div>{playerScore > botScore ? 'player' : 'bot'}</div>
 </div> 
 <button onClick={()=>{botTurn()}} disabled={disabledButton} style={{color: disabledButton ? 'red' : 'black'}}>play</button>
 <div className="fixed fixed left-1/2 bottom-80">{botCard}</div>
