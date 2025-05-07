@@ -32,4 +32,9 @@
   .dropOff{
     @apply border-2 border-dashed w-20 h-30 text-center flex items-center justify-center
   }
+ 
+  .card{
+    @apply rounded-xl w-20 h-30 text-center flex items-center justify-center bg-white
+  }
+
 }

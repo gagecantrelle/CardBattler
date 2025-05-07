@@ -19,7 +19,7 @@ function CardRPS({id, text}: {id: Number, text: String}) {
         background: isDragging ? "" : "white",
         color: isDragging ? "transparent" : "",
       }}
-      className="rounded-xl w-20 h-30 text-center flex items-center justify-center"
+      className="card"
     >
       {text}
     </div>
