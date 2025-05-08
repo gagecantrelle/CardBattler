@@ -43,6 +43,7 @@ default:
   }
 
 const botTurn = (): void =>{
+  if(botCard !== ''){
   setDisabledButton(true)
     const cardNum = Math.floor(Math.random() * 3)
     let playedCard = ''
@@ -88,6 +89,9 @@ const botTurn = (): void =>{
     setBotCard('')
     setDisabledButton(false)
     }, 3000);
+  }else{
+    console.error('ERROR NO CARD PlAYED: please pick from one of the 3 cards')
+  }
   }
 
   useEffect(()=>{
@@ -109,19 +113,26 @@ const botTurn = (): void =>{
 <div>bot: {botScore}</div>
 <div>round: {starterRound + 1}</div>
 
-</div> 
-<Button onClick={()=>{botTurn()}} shape="circle" disabled={disabledButton} color='red' variant="solid">Play</Button>
-<div className={`fixed left-1/2 bottom-80 ${disabledButton === true ? 'card' : 'border-2 border-dashed w-20 h-30'}`}>{botCard}</div>
-<div className="flex items-center justify-center fixed bottom-0 left-[calc(50%-80px)]">{cards.map((card)=>{
+</div>
+<div className="fixed left-3/4">
+<div className="bg-gray-400 size-[18vh] border-1 border-solid">
+<Button onClick={()=>{botTurn()}} shape="circle" disabled={disabledButton} color='red' variant="solid" className="relative left-[4vh] top-[4vh]" style={{height: '10vh', width: '10vh'}}>Play</Button>
+</div>
+<div className="bg-gray-400 w-[18vh] h-[5vh] border-1 border-solid"></div>
+</div>
+ 
+<div className={`fixed left-[105.5vh] bottom-[45vh] ${disabledButton === true ? 'card' : 'border-2 border-dashed w-[10vh] h-[15vh]'}`}>{botCard}</div>
+<div className="flex items-center justify-center fixed bottom-0 left-[95vh]">{cards.map((card)=>{
   return <CardRPS text={card.text} id={card.id}/>
 })}</div>
-<div className={`dropOff ${ board !== '' ? 'bg-white rounded-xl' : ''} ${ board !== '' ? 'border-none ' : ''} fixed left-1/2 bottom-40 `} ref={drop}>
+<div className={`dropOff ${ board !== '' ? 'bg-white rounded-xl' : ''} ${ board !== '' ? 'border-none ' : ''} fixed left-[105.5vh] bottom-40 `} ref={drop}>
 {board}
 </div>
-<div className="rounded-full bg-gray-300 fixed left-[calc(50%-70px)] top-10 size-55">
-  <div className="bg-black size-10 relative left-12 top-10"></div>
-  <div className="bg-black size-10 relative left-32"> </div>
-  <div className="bg-black h-10 w-20 relative left-17 top-20">   </div>
+
+<div className="rounded-full bg-gray-300 fixed left-[95vh] top-10 w-[30vh] h-[30vh]">
+  <div className="bg-black size-[5vh] relative left-[8vh] top-[5vh]"></div>
+  <div className="bg-black size-[5vh] relative left-[18vh]"> </div>
+  <div className="bg-black h-[5vh] w-[10vh] relative left-[10vh] top-[10vh]">   </div>
 </div>
 </>
   );
