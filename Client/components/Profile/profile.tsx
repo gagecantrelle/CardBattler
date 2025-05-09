@@ -7,7 +7,6 @@ function Profile({user, RPS, BJ, refresh, darkmode}: {user: Object, RPS: Object,
 const [name, setName] = useState(user.user_name)
 
 const update = (): void => {
-  console.log(document.documentElement.classList.contains('dark'))
 axios.patch(`/ProfileUpdate/${user.id}`,{user_name: name, ligthOrDark: darkmode ? false : true})
 .then(()=>{
   refresh()

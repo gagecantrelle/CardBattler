@@ -58,7 +58,7 @@ getGameData()
       
    </div>
    <div className={`fixed top-0 left-50`}>{active === 'profile' && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh} darkmode={darkmode}/>}</div>
-   <div className={`fixed top-50 left-50`}>{active === 'gameRPS' && <GameRPS user={user} RPS={RPS} refresh={refresh} darkmode={darkmode}/>}</div>
+   <div className={`fixed top-50 left-50`}>{active === 'gameRPS' && <GameRPS user={user} RPS={RPS} refresh={getGameData} darkmode={darkmode}/>}</div>
 </div>
   
  

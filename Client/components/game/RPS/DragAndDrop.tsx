@@ -43,11 +43,10 @@ default:
   }
 
 const botTurn = (): void =>{
-  if(botCard !== ''){
+  if(board !== ''){
   setDisabledButton(true)
     const cardNum = Math.floor(Math.random() * 3)
     let playedCard = ''
-    console.log(cardNum)
     if(board !== ''){
     switch(cardNum){
       case 0:
@@ -90,19 +89,25 @@ const botTurn = (): void =>{
     setDisabledButton(false)
     }, 3000);
   }else{
-    console.error('ERROR NO CARD PlAYED: please pick from one of the 3 cards')
+    console.warn('⚠️ NO CARD PlAYED: please pick from one of the 3 cards')
   }
   }
 
   useEffect(()=>{
     if(starterRound === rounds - 1){
       if(playerScore > botScore){
-        gameOn('end', highScore, 'player', null)
+        gameOn('end', true)
       }else if (playerScore < botScore){
-        gameOn('end', highScore, 'bot', null)
+        gameOn('end', false)
       }
     }else if(starterRound === rounds){
-      gameOn('end', highScore, playerScore, null)
+      if(playerScore > botScore){
+        gameOn('end', true)
+      }else if (playerScore < botScore){
+        gameOn('end', false)
+      }else{
+      gameOn('end', null)
+      }
     }
   },[botTurn])
 

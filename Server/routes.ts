@@ -213,8 +213,13 @@ router.patch('/ProfileUpdate/:id', (req: Request, res: Response) => {
   db.createDb.sync()
   .then(()=>{
     users.update({user_name, ligthOrDark},{where: {id}})
-    .then(()=>{
+    .then(([updatedRows])=>{
+      if(updatedRows === 0){
+        console.warn('⚠️ No rows updated, id exist but something went wrong');
+        res.sendStatus(500)
+      }else{
       res.sendStatus(200);
+      }
     })
     .catch((err)=>{
       console.error('❌ERROR CAN\'T FIND USERS TABLE TO UPDATE: ', err)
@@ -230,12 +235,16 @@ router.patch('/ProfileUpdate/:id', (req: Request, res: Response) => {
 router.patch('/RPSUpdate/:id', (req: Request, res: Response) => {
   const {highScore, win, lose}: {highScore: Number, win: Number, lose: Number} = req.body
   const {id} = req.params
-
   db.createDb.sync()
   .then(()=>{
-    gameRPS.update({highScore, win, lose},{where: {user_id: id}})
-    .then(()=>{
+    gameRPS.update({highScore, win, lose},{where: {id: id}})
+    .then(([updatedRows])=>{
+      if (updatedRows === 0) {
+        console.warn('⚠️ No rows updated, id exist but something went wrong');
+        res.sendStatus(500)
+      }else{
       res.sendStatus(200);
+      }
     })
     .catch((err)=>{
       console.error('❌ERROR CAN\'T FIND GAMERPS TABLE TO UPDATE: ', err)
@@ -254,9 +263,14 @@ router.patch('/BJUpdate/:id', (req: Request, res: Response) => {
 
   db.createDb.sync()
   .then(()=>{
-    gameBJ.update({highScore, win, lose},{where: {user_id: id}})
-    .then(()=>{
+    gameBJ.update({highScore, win, lose},{where: {id: id}})
+    .then(([updatedRows])=>{
+      if (updatedRows === 0) {
+        console.warn('⚠️ No rows updated, id exist but something went wrong');
+        res.sendStatus(500)
+      }else{
       res.sendStatus(200);
+      }
     })
     .catch((err)=>{
       console.error('❌ERROR CAN\'T FIND GAMEBJ TABLE TO UPDATE: ', err)

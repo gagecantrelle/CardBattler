@@ -4,24 +4,58 @@ import { DndProvider, useDrag, useDrop} from 'react-dnd'
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {Input} from 'antd'
 import DragAndDrop from "./DragAndDrop";
-//import backGround from '../../../styles/images/th.jpg'
+import axios from "axios"
 
-
-//import backGround from './styles/images/wood_Block_texture.png'
-
-function GameRPS({user, RPS, refresh, darkmode}: {user: Object, RPS: Object, refresh: Object, darkmode: Boolean}) {
+function GameRPS({user, RPS, refresh, darkmode}: {user: Object, RPS: Object, refresh: void, darkmode: Boolean}) {
 const [rounds, setRounds] = useState(3)
 const [starterRound, setStarterRound] = useState(0)
 const [gameStart, setGameStart] = useState(false)
-const [winner, setWinner] = useState('none')
+const [highScore, setHighScore] = useState(0)
+const [won, setWon] = useState('none')
 
-const gameOn = (status: string, highscore: number, win: string): void =>{
+const gameOn = (status: string, win: boolean): void =>{
+  const str: string = `/RPSUpdate/${RPS.id}`
 if(status === 'start'){
   setGameStart(true)
 }else if(status === 'end'){
   setGameStart(false)
   setStarterRound(0)
-  setWinner(win)
+  if(win){
+  const scoreCheck: number = highScore + 1
+    setWon('player')
+if(scoreCheck > RPS.highScore){
+  console.log(scoreCheck > RPS.highScore, scoreCheck, RPS.highScore)
+axios.patch(str,{highScore: scoreCheck, win: RPS.win + 1, lose: RPS.lose})
+.then(()=>{
+  refresh()
+})
+.catch((err)=>{
+  console.error('ERROR CAN\'T UPDATE WIN COUNT AND HIGHSCORE: ', err)
+})
+}else{
+axios.patch(str,{highScore: RPS.highScore, win: RPS.win + 1, lose: RPS.lose})
+.then(()=>{
+  setHighScore(scoreCheck)
+  refresh()
+})
+.catch((err)=>{
+  console.error('ERROR CAN\'T UPDATE WIN COUNT: ', err)
+})
+}
+  }else if(win === false && win !== null){
+    setHighScore(0)
+    setWon('bot')
+    axios.patch(str,{highScore: RPS.highScore, win: RPS.win, lose: RPS.lose + 1})
+.then(()=>{
+  refresh()
+})
+.catch((err)=>{
+  console.error('ERROR CAN\'T UPDATE LOSE COUNT: ', err)
+})
+  }else if(win === null){
+    setWon('tie')
+    setHighScore(0)
+  }
 }
 } 
 
@@ -44,7 +78,7 @@ setStarterRound(starterRound + 1)
     <div>rounds:</div>
     <Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}}></Input>
   
-    <div>{winner} won</div>
+    <div>{won} won</div>
   </div>}
 
   <div>
