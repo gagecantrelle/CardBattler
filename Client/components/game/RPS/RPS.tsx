@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../../../styles/style.css"
 import { DndProvider, useDrag, useDrop} from 'react-dnd'
 import { HTML5Backend } from "react-dnd-html5-backend";
-import {Input} from 'antd'
+import {Input, Checkbox} from 'antd'
+import type { CheckboxProps } from 'antd';
 import DragAndDrop from "./DragAndDrop";
 import axios from "axios"
 
@@ -12,6 +13,7 @@ const [starterRound, setStarterRound] = useState(0)
 const [gameStart, setGameStart] = useState(false)
 const [highScore, setHighScore] = useState(0)
 const [won, setWon] = useState('none')
+const [mode, setMode] = useState('normal')
 
 const gameOn = (status: string, win: boolean): void =>{
   const str: string = `/RPSUpdate/${RPS.id}`
@@ -71,18 +73,26 @@ const nextRound = (): void => {
 setStarterRound(starterRound + 1)
 }
 
+const gameMode: CheckboxProps['onChange'] = (e) => {
+  console.log(`checked = ${e.target.checked}`);
+  if(e.target.checked ===false){
+    setMode('normal')
+  }else{
+    setMode('fast')
+  }
+};
   return (
  <DndProvider backend={HTML5Backend}>
  {gameStart === false && <div className="rounded-xl w-22 h-30 relative left-20 bg-white">
     <button onClick={()=>{gameOn('start', null, null)}} className={`${darkmode ? 'lightButton': 'darkButton'}`}>start game</button>
     <div>rounds:</div>
     <Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}}></Input>
-  
+  <Checkbox onChange={gameMode}>Fast mode</Checkbox>
     <div>{won} won</div>
   </div>}
 
   <div>
-   {gameStart && <DragAndDrop gameOn={gameOn} rounds={rounds} nextRound={nextRound} starterRound={starterRound}/>} 
+   {gameStart && <DragAndDrop gameOn={gameOn} rounds={rounds} nextRound={nextRound} starterRound={starterRound} user={user} mode={mode}/>} 
   </div>
  </DndProvider>
   );

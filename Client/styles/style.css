@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Caveat:wght@400..700&display=swap');
 @import "tailwindcss";
 @tailwind base;
 @tailwind components;
@@ -6,6 +7,7 @@
 
 :root {
   --front-bubblegum:'Bubblegum Sans', 'cursive'
+  --front-bubblegum:'Caveat', 'cursive'
 }
 
 @layer base{
@@ -34,7 +36,11 @@
   }
  
   .card{
-    @apply rounded-xl w-[10vh] h-[15vh] text-center flex items-center justify-center bg-white
+    @apply rounded-xl w-[10vh] h-[15vh] text-center flex items-center justify-center 
+  }
+
+  .paperText{
+    @apply font-[Caveat]
   }
 
 }

@@ -3,19 +3,22 @@ import "../../../styles/style.css"
 import {useDrop} from 'react-dnd'
 import CardRPS from "./card";
 import { Button } from 'antd';
+import paperString from "../../../styles/paperString";
 const cards = [
   {id: 1, text: '🪨'},
   {id: 2, text: '📄'},
   {id: 3, text: '✂️'}
 ]
 
-function DragAndDrop({gameOn, rounds, nextRound, starterRound}:{gameOn: void, rounds: number, nextRound: void, starterRound: number}) {
+function DragAndDrop({gameOn, rounds, nextRound, starterRound, user, mode}:{gameOn: void, rounds: number, nextRound: void, starterRound: number, user: Object, mode: string}) {
   const [board, setBoard] = useState('')
   const [botCard, setBotCard] = useState('')
   const [playerScore, setPlayerScore] = useState(0)
   const [botScore, setBotScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
   const [disabledButton, setDisabledButton] = useState(false);
+  const [dropCard, setDropCard] = useState('')
+  const [gameMode, setGameMode] = useState(mode)
   const [{isOver}, drop] = useDrop(()=>({
     accept: 'div',
     drop: ({id, text}: {id: Number, text: String}) => addImage(id),
@@ -29,15 +32,19 @@ collect: (monitor) => ({
     switch(id){
 case 1:
   setBoard('🪨');
+  setDropCard('🪨')
   break;
 case 2: 
   setBoard('📄');
+  setDropCard('📄')
   break;
 case 3: 
   setBoard('✂️');
+  setDropCard('✂️')
   break;
 default:
   setBoard('');
+  setDropCard('')
   break;
     }
   }
@@ -94,7 +101,7 @@ const botTurn = (): void =>{
   }
 
   useEffect(()=>{
-    if(starterRound === rounds - 1){
+    if(starterRound === rounds - 1 && gameMode === 'fast'){
       if(playerScore > botScore){
         gameOn('end', true)
       }else if (playerScore < botScore){
@@ -113,13 +120,17 @@ const botTurn = (): void =>{
 
   return (
 <>
-<div className="rounded-xl w-20 h-30 relative left-20 bg-white">
-<div>you: {playerScore}</div>
-<div>bot: {botScore}</div>
-<div>round: {starterRound + 1}</div>
-
+<div className=" border-1 border-solid w-60 h-90 relative left-[10vh] bg-white bottom-10">
+<div className="relative left-8 top-4 paperText">Rock, Paper, Scissors</div>
+<div className="text-blue-200 tracking-tight">━━━━━━━━━━━━━━━</div>
+<div className="text-red-200 rotate-90 relative right-22 top-15 tracking-tight">━━━━━━━━━━━━━━━━━━━━━━━</div>
+<div className='relative bottom-10 left-8 paperText'>round: {starterRound + 1}</div>
+<div className="text-blue-200 relative bottom-14">{paperString}</div>
+<div className='relative left-8 bottom-88 paperText'>{user.user_name}: {playerScore}</div>
+<div className='relative left-8 bottom-88 paperText'>Card Bot: {botScore}</div>
 </div>
-<div className="fixed left-3/4">
+
+<div className="fixed left-[150vh] bottom-[25vh]">
 <div className="bg-gray-400 size-[18vh] border-1 border-solid">
 <Button onClick={()=>{botTurn()}} shape="circle" disabled={disabledButton} color='red' variant="solid" className="relative left-[4vh] top-[4vh]" style={{height: '10vh', width: '10vh'}}>Play</Button>
 </div>
@@ -128,9 +139,9 @@ const botTurn = (): void =>{
  
 <div className={`fixed left-[105.5vh] bottom-[45vh] ${disabledButton === true ? 'card' : 'border-2 border-dashed w-[10vh] h-[15vh]'}`}>{botCard}</div>
 <div className="flex items-center justify-center fixed bottom-0 left-[95vh]">{cards.map((card)=>{
-  return <CardRPS text={card.text} id={card.id}/>
+  return <CardRPS text={card.text} id={card.id} dropCard={drop}/>
 })}</div>
-<div className={`dropOff ${ board !== '' ? 'bg-white rounded-xl' : ''} ${ board !== '' ? 'border-none ' : ''} fixed left-[105.5vh] bottom-40 `} ref={drop}>
+<div className={`dropOff ${ board !== '' ? 'bg-white rounded-xl' : ''} ${ board !== '' ? 'border-solid ' : ''} fixed left-[105.5vh] bottom-40 `} ref={drop}>
 {board}
 </div>
 
