@@ -4,8 +4,10 @@ import { DndProvider, useDrag, useDrop} from 'react-dnd'
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {Input, Checkbox} from 'antd'
 import type { CheckboxProps } from 'antd';
+import { EnterOutlined } from '@ant-design/icons'
 import DragAndDrop from "./DragAndDrop";
 import axios from "axios"
+import paper from "../../../styles/paperString";
 
 function GameRPS({user, RPS, refresh, darkmode}: {user: Object, RPS: Object, refresh: void, darkmode: Boolean}) {
 const [rounds, setRounds] = useState(3)
@@ -83,13 +85,25 @@ const gameMode: CheckboxProps['onChange'] = (e) => {
 };
   return (
  <DndProvider backend={HTML5Backend}>
- {gameStart === false && <div className="rounded-xl w-22 h-30 relative left-20 bg-white">
-    <button onClick={()=>{gameOn('start', null, null)}} className={`${darkmode ? 'lightButton': 'darkButton'}`}>start game</button>
-    <div>rounds:</div>
-    <Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}}></Input>
-  <Checkbox onChange={gameMode}>Fast mode</Checkbox>
-    <div>{won} won</div>
-  </div>}
+ {gameStart === false && <>
+  <div className="bg-white fixed w-[40vh] h-[60vh] left-[93vh] bottom-[24vh] bottom-[18vh] border-1 border-solid">
+    <div className="text-red-200 rotate-90 relative right-30 top-33 tracking-tight">━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+    <div className="text-blue-200 tracking-tight">━━━━━━━━━━━━━━━━━━</div>
+    <div className="text-blue-200 relative">{paper.paperString2}</div>
+    <button onClick={()=>{gameOn('start', null, null)}} className={`${darkmode ? 'lightButton': 'darkButton'} relative bottom-[21vh] left-6 paperText`}> start game</button>
+    <div className="w-10 relative bottom-[18vh] left-6 paperText">rounds:<Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}} className="relative bottom-[3.5vh] left-12"></Input></div>
+  <Checkbox onChange={gameMode} className='relative bottom-[19vh] left-1'><div className="paperText">Fast mode</div></Checkbox>
+  </div>
+<div className="fixed left-[98vh] top-[25vh]" style={{ fontSize: '10vh' }}>📄</div>
+<div className="fixed left-[115vh] top-[25vh]" style={{ fontSize: '10vh' }}>🪨</div>
+<div className="fixed left-[105vh] top-[39vh]" style={{ fontSize: '10vh' }}>✂️</div>
+<EnterOutlined style={{ fontSize: '10vh' }} className="fixed bottom-[52vh] left-[98vh] z-6" rotate={105}/>
+<EnterOutlined style={{ fontSize: '10vh' }} className="fixed bottom-[69vh] left-[109vh] z-6" rotate={220}/>
+<EnterOutlined style={{ fontSize: '10vh' }} className="fixed bottom-[51vh] left-[115vh] z-6" rotate={-9}/>
+  </>}
+
+
+
 
   <div>
    {gameStart && <DragAndDrop gameOn={gameOn} rounds={rounds} nextRound={nextRound} starterRound={starterRound} user={user} mode={mode}/>} 

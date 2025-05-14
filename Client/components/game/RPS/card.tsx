@@ -5,6 +5,7 @@ import {useDrag} from 'react-dnd'
 
 function CardRPS({id, text, dropCard}: {id: Number, text: String, dropCard: String}) {
   const [isDrop, setIsDrop] = useState(false)
+  const [textColor, setTextColor] = useState('')
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "div", // Type can be anything, it's just a label for the drag item
     item: {id},
@@ -19,13 +20,22 @@ function CardRPS({id, text, dropCard}: {id: Number, text: String, dropCard: Stri
     }else{
       setIsDrop(false)
     }
+
+    if(text === '🪨'){
+     setTextColor('#e5e7eb')
+    }else if(text === '✂️'){
+     setTextColor('#fecaca')
+    }else{
+      setTextColor('white')
+    }
+
   },[dropCard])
 
   return (
     <div
       ref={drag} // This connects the div to the drag source
       style={{
-        background: isDragging ? "" : "white",
+        background: isDragging ? "" : textColor,
         color: isDragging ? "transparent" : "",
         visibility: isDrop ? "hidden" : "",
          border: isDragging ? '' : '2px solid black'
