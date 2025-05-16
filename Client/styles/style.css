@@ -44,3 +44,32 @@
   }
 
 }
+
+@theme{
+  --animate-headBounce: headBounce 1s ease-in-out infinite;
+  --animate-eyeBounce: eyeBounce 1s ease-in-out infinite;
+  
+  @keyframes headBounce {
+    0% {
+      transform: translateY(0%);
+    }
+     50%{
+transform: translateY(10%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
+   @keyframes eyeBounce {
+    0% {
+      transform: translateY(0%);
+    }
+     50%{
+transform: translateY(20%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+}

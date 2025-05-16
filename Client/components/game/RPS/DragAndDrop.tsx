@@ -153,9 +153,9 @@ const botTurn = (): void =>{
 {board}
 </div>
 
-<div className="rounded-full bg-gray-300 fixed left-[95vh] top-10 w-[30vh] h-[30vh]">
-  <div className="bg-black size-[5vh] relative left-[8vh] top-[5vh]"></div>
-  <div className="bg-black size-[5vh] relative left-[18vh]"> </div>
+<div className="animate-headBounce rounded-full bg-gray-300 fixed left-[95vh] top-10 w-[30vh] h-[30vh]">
+  <div className="animate-eyeBounce bg-black size-[5vh] relative left-[8vh] top-[5vh]"></div>
+  <div className="animate-eyeBounce bg-black size-[5vh] relative left-[18vh]"> </div>
   <div className="bg-black h-[5vh] w-[10vh] relative left-[10vh] top-[10vh]">   </div>
 </div>
 </>
