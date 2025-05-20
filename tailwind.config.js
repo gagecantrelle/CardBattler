@@ -9,7 +9,7 @@ module.exports = {
       },
       colors:{
         softblue: '#B9D6F2'
-      }
+      },
     },
   },
 };

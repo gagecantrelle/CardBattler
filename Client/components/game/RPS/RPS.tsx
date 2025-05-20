@@ -83,23 +83,27 @@ const gameMode: CheckboxProps['onChange'] = (e) => {
     setMode('fast')
   }
 };
+
+useEffect(()=>{
+  console.log(window.innerHeight)
+},[])
   return (
  <DndProvider backend={HTML5Backend}>
  {gameStart === false && <>
-  <div className="bg-white fixed w-[40vh] h-[60vh] left-[93vh] bottom-[24vh] bottom-[18vh] border-1 border-solid">
-    <div className="text-red-200 rotate-90 relative right-30 top-33 tracking-tight">━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-    <div className="text-blue-200 tracking-tight">━━━━━━━━━━━━━━━━━━</div>
-    <div className="text-blue-200 relative">{paper.paperString2}</div>
-    <button onClick={()=>{gameOn('start', null, null)}} className={`${darkmode ? 'lightButton': 'darkButton'} relative bottom-[21vh] left-6 paperText`}> start game</button>
-    <div className="w-10 relative bottom-[18vh] left-6 paperText">rounds:<Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}} className="relative bottom-[3.5vh] left-12"></Input></div>
-  <Checkbox onChange={gameMode} className='relative bottom-[19vh] left-1'><div className="paperText">Fast mode</div></Checkbox>
+  <div className="bg-white fixed w-70.5 h-113.5 left-[93vh] bottom-16 border-1 border-solid">
+    <div className="text-red-200 rotate-90 relative right-30 top-32 tracking-tight">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+    <div className="text-blue-200 relative bottom-2.5 tracking-tight">━━━━━━━━━━━━━━━━━━</div>
+    <div className="text-blue-200 relative bottom-3.5">{paper.paperString2}</div>
+    <button onClick={()=>{gameOn('start', null, null)}} className={`${darkmode ? 'lightButton': 'darkButton'} relative bottom-35 left-6 paperText`}> start game</button>
+    <div className="w-10 relative bottom-30 left-6 paperText">rounds:<Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}} className="relative bottom-7 left-12"></Input></div>
+  <Checkbox onChange={gameMode} className='relative bottom-32 left-0.5'><div className="paperText">Fast mode</div></Checkbox>
+  <div className="absolute left-44 bottom-75" style={{ fontSize: '10vh' }}>📄</div>
+<div className="absolute left-26 bottom-55" style={{ fontSize: '10vh' }}>🪨</div>
+<div className="absolute left-8 bottom-75" style={{ fontSize: '10vh' }}>✂️</div>
+<EnterOutlined style={{ fontSize: '10vh' }} className="absolute bottom-65 left-13 z-6" rotate={105}/>
+<EnterOutlined style={{ fontSize: '10vh' }} className="absolute bottom-89 left-29 z-6" rotate={220}/>
+<EnterOutlined style={{ fontSize: '10vh' }} className="absolute bottom-62.5 left-45.5 z-6" rotate={-9}/>
   </div>
-<div className="fixed left-[98vh] top-[25vh]" style={{ fontSize: '10vh' }}>📄</div>
-<div className="fixed left-[115vh] top-[25vh]" style={{ fontSize: '10vh' }}>🪨</div>
-<div className="fixed left-[105vh] top-[39vh]" style={{ fontSize: '10vh' }}>✂️</div>
-<EnterOutlined style={{ fontSize: '10vh' }} className="fixed bottom-[52vh] left-[98vh] z-6" rotate={105}/>
-<EnterOutlined style={{ fontSize: '10vh' }} className="fixed bottom-[69vh] left-[109vh] z-6" rotate={220}/>
-<EnterOutlined style={{ fontSize: '10vh' }} className="fixed bottom-[51vh] left-[115vh] z-6" rotate={-9}/>
   </>}
 
 
