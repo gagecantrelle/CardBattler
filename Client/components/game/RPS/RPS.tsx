@@ -84,9 +84,6 @@ const gameMode: CheckboxProps['onChange'] = (e) => {
   }
 };
 
-useEffect(()=>{
-  console.log(window.innerHeight)
-},[])
   return (
  <DndProvider backend={HTML5Backend}>
  {gameStart === false && <>

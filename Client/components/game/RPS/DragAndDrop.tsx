@@ -21,6 +21,7 @@ function DragAndDrop({gameOn, rounds, nextRound, starterRound, user, mode}:{game
   const [gameMode, setGameMode] = useState(mode)
   const [cardBgColor, setcardBgColor] = useState('')
   const [cardBgBotColor, setcardBgBotColor] = useState('')
+  const [botWin, setBotWin] = useState('bg-black')
   const [{isOver}, drop] = useDrop(()=>({
     accept: 'div',
     drop: ({id, text}: {id: Number, text: String}) => addImage(id),
@@ -81,19 +82,25 @@ const botTurn = (): void =>{
 
   if(board === '🪨' && playedCard === '📄'){
     setBotScore(botScore + 1)
+    setBotWin('bg-green-500 rounded-full')
   }else if(board === '📄' && playedCard === '🪨'){
     setPlayerScore(playerScore + 1)
     setHighScore(highScore + 1)
+    setBotWin('bg-red-500')
     }else if(board === '📄' && playedCard === '✂️'){
       setBotScore(botScore + 1)
+      setBotWin('bg-green-500 rounded-full')
       }else if(board === '✂️' && playedCard === '📄'){
         setPlayerScore(playerScore + 1)
         setHighScore(highScore + 1)
+        setBotWin('bg-red-500')
         }else if(board === '✂️' && playedCard === '🪨'){
           setBotScore(botScore + 1)
+          setBotWin('bg-green-500 rounded-full')
           }else if(board === '🪨' && playedCard === '✂️'){
             setPlayerScore(playerScore + 1)
             setHighScore(highScore + 1)
+            setBotWin('bg-red-500')
             }
     
 
@@ -101,6 +108,7 @@ const botTurn = (): void =>{
     nextRound()
     setBoard('')
     setBotCard('')
+    setBotWin('bg-black')
     setDisabledButton(false)
     }, 3000);
   }else{
@@ -154,8 +162,8 @@ const botTurn = (): void =>{
 </div>
 
 <div className="animate-headBounce rounded-full bg-gray-300 fixed left-[95vh] top-10 w-[30vh] h-[30vh]">
-  <div className="animate-eyeBounce bg-black size-[5vh] relative left-[8vh] top-[5vh]"></div>
-  <div className="animate-eyeBounce bg-black size-[5vh] relative left-[18vh]"> </div>
+  <div className={`animate-eyeBounce ${botWin} size-[5vh] relative left-[8vh] top-[5vh]`}><div className="rounded-full bg-white size-[3vh] relative left-2 top-2" style={{visibility: botWin[3] === 'g' ? "" : "hidden"}}></div></div>
+  <div className={`animate-eyeBounce ${botWin} size-[5vh] relative left-[18vh]`}><div className="rounded-full bg-white size-[3vh] relative left-1 top-2" style={{visibility: botWin[3] === 'g' ? "" : "hidden"}}></div></div>
   <div className="bg-black h-[5vh] w-[10vh] relative left-[10vh] top-[10vh]">   </div>
 </div>
 </>
