@@ -67,7 +67,7 @@ const howManyRounds = (num: number): void =>{
   if(num === undefined || num === 0){
     setRounds(3)
   }else{
-    setRounds(num)
+    setRounds(parseFloat(num))
   }
 }
 

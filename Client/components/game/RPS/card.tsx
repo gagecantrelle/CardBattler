@@ -3,7 +3,7 @@ import "../../../styles/style.css"
 import {useDrag} from 'react-dnd'
 
 
-function CardRPS({id, text, dropCard}: {id: Number, text: String, dropCard: String}) {
+function CardRPS({id, text, dropCard}: {id: Number, text: String, dropCard: string}) {
   const [isDrop, setIsDrop] = useState(false)
   const [textColor, setTextColor] = useState('')
   const [{ isDragging }, drag] = useDrag(() => ({
