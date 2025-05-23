@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios"
 import "../../styles/style.css"
 import {ColorPicker, Input, Button} from 'antd';
-import { RollbackOutlined } from '@ant-design/icons'
+import { RollbackOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import paper from '../../styles/paperString'
 import { BlobOptions } from "buffer";
 
@@ -20,9 +20,27 @@ const defaultColor = [
 function ProfileEdit({user, edit, refresh, darkMode}: {user: Object, edit: void, refresh: void, darkMode: boolean}) {
 const [color, setColor] = useState('')
 const [newName, setNewName] = useState('')
+const [animate, setAnimate] = useState('animate-editProfileIn')
 
 const editName = (name: string): void =>{
 setNewName(name)
+}
+
+const editColor = (str: string): void =>{
+  console.log(str)
+  setColor(str)
+}
+
+const editReturn = (): void =>{
+if(animate === 'animate-editProfileIn'){
+  setAnimate('animate-editProfileOut')
+}else{
+  setAnimate('animate-editProfileIn')
+}
+
+  setTimeout(() => {
+    edit()
+  }, 3000);
 }
 
 const updateName = (): void => {
@@ -35,25 +53,31 @@ axios.patch(`/ProfileUpdate/${user.id}`,{user_name: newName, ligthOrDark: darkMo
 })
 }
 
-//left-[-72vh]
+
   return (
-<div className=" border-1 border-solid w-48 h-82.5 absolute top-[5vh] bg-white bottom-10 z-0">
+<div className={`${animate} left-[-44vh] border-1 border-solid w-48 h-82.5 absolute top-[5vh] bg-white bottom-10 z-0`}>
 <div className="relative left-4 top-4 paperText">Info Update</div>
 <div className="text-blue-200 tracking-tight">━━━━━━━━━━━━</div>
 <div className="text-red-200 rotate-90 relative right-20 top-9 tracking-tight">━━━━━━━━━━━━━━━━━━━━━</div>
 <div className="text-blue-200 relative bottom-8">{paper.paperString3}</div>
-<div className="relative left-4 bottom-60 paperText">name:</div>
-<div className="relative left-4 bottom-60 w-40"><Input placeholder={`${user.user_name}`} onInput={(e)=>{editName(e.target.value)}}></Input></div>
-<Button onClick={()=>{updateName()}} className="relative left-4 bottom-60"><div className="paperText">confirm</div></Button>
+<div className="relative left-4 bottom-81 paperText">We hear that you want to</div>
+<div className="relative left-4 bottom-81 paperText">update you id card, please fill in</div>
+<div className="relative left-4 bottom-81 paperText">the boxes below.</div>
+<div className="relative left-4 bottom-81 paperText">name:</div>
+<div className="relative left-4 bottom-82.5 w-40"><Input placeholder={`${user.user_name}`} onInput={(e)=>{editName(e.target.value)}} style={{border: '1px dashed #bfdbfe', height:'25px'}}></Input></div>
  <ColorPicker
       defaultValue={defaultColor}
       allowClear
       mode="gradient"
       onChangeComplete={(color) => {
-        setColor(color.toCssString());
+        editColor(color.toCssString());
       }}
-    className="relative left-4 bottom-60" />
-<Button onClick={()=>{edit()}} className="relative left-4 bottom-60"><div className="paperText">go Back</div><RollbackOutlined /></Button>
+    className="relative left-4 bottom-78"
+    style={{border: '1px dashed #bfdbfe'}} />
+    <div className="paperText relative left-12 bottom-85"><ArrowLeftOutlined />Pick a color</div>
+    <div className="relative left-4 h-4 w-42 bottom-84 rounded-xl" style={{ background: color !== '' ? color : 'linear-gradient(90deg, rgb(6, 182, 212) 0%, rgb(59, 130, 246) 100%)'}}></div>
+    <Button onClick={()=>{updateName()}} className="relative left-2 bottom-83" type="text"><div className="paperText">confirm</div></Button>
+<Button onClick={()=>{editReturn()}} className="relative left-8 bottom-65" type="text"><div className="paperText">go Back</div><RollbackOutlined /></Button>
 </div>
   );
 }

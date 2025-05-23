@@ -51,6 +51,7 @@ passport.use(new GoogleStrategy(
     callbackURL: "http://localhost:8080/auth/google/callback",
   },
   function(accessToken: String, refreshToken: String, profile: Profile, cb: (err: User, user?: Express.User | false) => void) {
+    console.log(profile)
     obj.users.findOne({where:{google_id: profile.id}})
     .then((data)=>{
       const userSession = {

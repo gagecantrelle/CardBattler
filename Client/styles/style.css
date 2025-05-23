@@ -48,6 +48,8 @@
 @theme{
   --animate-headBounce: headBounce 1s ease-in-out infinite;
   --animate-eyeBounce: eyeBounce 1s ease-in-out infinite;
+  --animate-editProfileIn: editProfileIn 3s ease-in-out ;
+  --animate-editProfileOut: editProfileOut 3s ease-in-out ;
   
   @keyframes headBounce {
     0% {
@@ -70,6 +72,23 @@ transform: translateY(20%);
     }
     100% {
       transform: translateY(0%);
+    }
+  }
+
+  @keyframes editProfileIn {
+    0% {
+      transform: translatex(-100%);
+    }
+    100% {
+      transform: translatex(0%);
+    }
+  }
+    @keyframes editProfileOut {
+    0% {
+      transform: translatex(0%);
+    }
+    100% {
+      transform: translatex(-100%);
     }
   }
 }
