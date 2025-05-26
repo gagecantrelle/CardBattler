@@ -51,13 +51,13 @@ passport.use(new GoogleStrategy(
     callbackURL: "http://localhost:8080/auth/google/callback",
   },
   function(accessToken: String, refreshToken: String, profile: Profile, cb: (err: User, user?: Express.User | false) => void) {
-    console.log(profile)
     obj.users.findOne({where:{google_id: profile.id}})
     .then((data)=>{
       const userSession = {
         google_id: profile.id,
         user_name: profile.displayName,
         ligthOrDark: true,
+        google_avatar: profile.photos[0].value,
         real: data === null ? false : true
       };
       return cb(null, userSession)
@@ -67,6 +67,7 @@ passport.use(new GoogleStrategy(
         google_id: profile.id,
         user_name: profile.displayName,
         ligthOrDark: true,
+        google_avatar: profile.photos[0].value,
         real: false
       };
       return cb(null, userSession)

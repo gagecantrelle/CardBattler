@@ -8,10 +8,10 @@ import ProfileEdit from "./profileEdit";
 function Profile({user, RPS, BJ, refresh, darkmode}: {user: Object, RPS: Object, BJ: Object, refresh: void, darkmode: Boolean}) {
 const [name, setName] = useState(user.user_name)
 const [edit, setEdit] = useState(false)
-const [color, setColor] =useState('linear-gradient(to right, #06b6d4, #3b82f6)')
+const [color, setColor] =useState(user.cardColor)
 
 const update = (): void => {
-axios.patch(`/ProfileUpdate/${user.id}`,{user_name: name, ligthOrDark: darkmode ? false : true})
+axios.patch(`/ProfileUpdate/${user.id}`,{user_name: name, ligthOrDark: darkmode ? false : true, cardColor: color, google_avatar: user.google_avatar})
 .then(()=>{
   refresh()
 })
@@ -25,6 +25,7 @@ const editMode = (): void =>{
 } 
 
   useEffect(()=>{
+    console.log(user.google_avatar)
   },[])
   return (
 <div className="absolute left-80 top-50">
@@ -49,10 +50,9 @@ const editMode = (): void =>{
 <div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'} hover:disabled`}>Win: {BJ.win}</div>
 <div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'} hover:disabled`}>Lose: {BJ.lose}</div>
 </div>
-</div><Avatar className="absolute left-90 bottom-32" size={150} src="https://lh3.googleusercontent.com/a/ACg8ocI288QD_fsg7PItGFH_BD7UC5iILOcgVwiamquNqPFjTllse6k=s96-c"/>
-
+</div>
+<Avatar key={user.google_avatar} className="absolute left-90 bottom-32" size={150} src={user.google_avatar}/>
 </Card>
-
 {edit === true && <ProfileEdit user={user} edit={editMode} refresh={refresh} darkMode={darkmode}/>}
   </div>
   );

@@ -31,6 +31,14 @@ const users = db.createDb.define('users',{
   ligthOrDark:{
     type: DataTypes.BOOLEAN,
     allowNull: false
+  },
+  cardColor:{
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  google_avatar:{
+    type: DataTypes.STRING,
+    allowNull: false
   }
 },{
   tableName: 'users',
@@ -160,7 +168,7 @@ router.get('/GameBJ/:id', (req: Request, res: Response) => {
 
 //when user is created also create gameBJ and gameRPS
 router.post('/CreateUser', async (req: Request, res: Response) => {
-const {user_name, google_id, ligthOrDark}: {user_name: String, google_id: Number, ligthOrDark: Boolean} = req.body
+const {user_name, google_id, ligthOrDark, google_avatar}: {user_name: String, google_id: Number, ligthOrDark: Boolean, google_avatar: String} = req.body
 
 db.createDb.sync()
 .then(async ()=>{
@@ -168,6 +176,8 @@ await users.create({
   user_name,
   google_id,
   ligthOrDark,
+  cardColor: 'linear-gradient(to right, #06b6d4, #3b82f6)',
+  google_avatar
 })
 .then((userInfo)=>{
   gameRPS.create({
@@ -208,11 +218,11 @@ await users.create({
 })
 
 router.patch('/ProfileUpdate/:id', (req: Request, res: Response) => {
-  const {user_name, ligthOrDark}: {user_name: String, ligthOrDark: Boolean} = req.body
+  const {user_name, ligthOrDark, cardColor, google_avatar}: {user_name: String, ligthOrDark: Boolean, cardColor: String, google_avatar: String} = req.body
   const {id} = req.params
   db.createDb.sync()
   .then(()=>{
-    users.update({user_name, ligthOrDark},{where: {id}})
+    users.update({user_name, ligthOrDark, cardColor, google_avatar},{where: {id}})
     .then(([updatedRows])=>{
       if(updatedRows === 0){
         console.warn('⚠️ No rows updated, id exist but something went wrong');

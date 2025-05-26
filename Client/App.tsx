@@ -26,7 +26,7 @@ const checkUser = (): void =>{
         console.error('❌ERROR SOMETHING IS WRONG WITH THIS ID: ', err)
       })
     }else{
-      axios.post('/CreateUser',{user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark})
+      axios.post('/CreateUser',{user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark, google_avatar: user.google_avatar})
       .then(()=>{
         setUser({user_name: user.user_name, google_id: user.google_id, ligthOrDark: user.ligthOrDark})
       })

@@ -7,7 +7,9 @@ CREATE Table IF NOT EXISTS users (
   id INT PRIMARY KEY AUTO_INCREMENT ,
   user_name VARCHAR (255),
   google_id VARCHAR (225), 
-  ligthOrDark BOOLEAN
+  ligthOrDark BOOLEAN,
+  cardColor VARCHAR (225),
+  google_avatar VARCHAR (2083)
 );
 
 CREATE Table IF NOT EXISTS gameRPS (
