@@ -17,7 +17,7 @@ const defaultColor = [
   }
 ]
 
-function ProfileEdit({user, edit, refresh, darkMode}: {user: Object, edit: void, refresh: void, darkMode: boolean}) {
+function ProfileEdit({user, edit, refresh, darkMode, colorEdit}: {user: Object, edit: void, refresh: void, darkMode: boolean, colorEdit: void}) {
 const [color, setColor] = useState('')
 const [newName, setNewName] = useState('')
 const [animate, setAnimate] = useState('animate-editProfileIn')
@@ -27,7 +27,6 @@ setNewName(name)
 }
 
 const editColor = (str: string): void =>{
-  console.log(str)
   setColor(str)
 }
 
@@ -44,6 +43,7 @@ if(animate === 'animate-editProfileIn'){
 }
 
 const update = (): void =>{
+  console.log('profile edit')
   let changeName = user.user_name;
   let changeColor = 'linear-gradient(to right, rgb(6, 182, 212), rgb(59, 130, 246))'
   if(newName !== ''){
@@ -54,9 +54,8 @@ const update = (): void =>{
   }
   axios.patch(`/ProfileUpdate/${user.id}`,{user_name: changeName, ligthOrDark: darkMode , cardColor: changeColor, google_avatar: user.google_avatar})
 .then(()=>{
+colorEdit(changeColor)
   refresh()
-   refresh()
-    refresh()
 })
 .catch((err)=>{
   console.error('❌ERROR SOMETHING IS WRONG WITH THIS ID: ', err)

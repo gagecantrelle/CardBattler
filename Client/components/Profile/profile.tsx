@@ -24,9 +24,10 @@ const editMode = (): void =>{
   setEdit(!edit)
 } 
 
-  useEffect(()=>{
-    console.log(user.google_avatar)
-  },[])
+const colorEdit = (newColor: string): void =>{
+  setColor(newColor)
+}
+
   return (
 <div className="absolute left-80 top-50">
     <Card cover={<div className={`${darkmode ? 'lightName': 'darkName'} h-15 text-4xl`} style={{width: '600px', background: color}}>
@@ -51,9 +52,9 @@ const editMode = (): void =>{
 <div className={`rounded-xl border-2 border-solid border-blue-500 ${darkmode ? 'light': 'dark'} hover:disabled`}>Lose: {BJ.lose}</div>
 </div>
 </div>
-<Avatar key={user.google_avatar} className="absolute left-90 bottom-32" size={150} src={user.google_avatar}/>
+<Avatar key={user.google_avatar} className="absolute left-90 bottom-32" size={150} src={user.google_avatar} crossOrigin="anonymous"/>
 </Card>
-{edit === true && <ProfileEdit user={user} edit={editMode} refresh={refresh} darkMode={darkmode}/>}
+{edit === true && <ProfileEdit user={user} edit={editMode} refresh={refresh} darkMode={darkmode} colorEdit={colorEdit}/>}
   </div>
   );
 }
