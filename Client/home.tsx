@@ -4,6 +4,7 @@ import axios from "axios"
 import "./styles/style.css"
 import Profile from "./components/Profile/profile";
 import GameRPS from "./components/game/RPS/RPS";
+import GameBJ from "./components/game/BJ/BJ";
 import backGround from './styles/images/wood_Block_texture.png'
 
 function Home({user, refresh, darkmode, height, width}: {user: Object, refresh: void, darkmode: Boolean, height: number, width: number}) {
@@ -52,11 +53,18 @@ getGameData()
         setActive('gameRPS')
        }
     }}>Game RPS</button>
-      <button className={`top-67 left-18 absolute font-[bubblegum] ${darkmode ? 'lightButton': 'darkButton'}`}>Game BJ</button>
+      <button onClick={()=>{ 
+     if(active === 'BJ'){
+      setActive('')
+     }else{
+      setActive('gameBJ')
+     } 
+    }}className={`top-67 left-18 absolute font-[bubblegum] ${darkmode ? 'lightButton': 'darkButton'}`}>Game BJ</button>
       
    </div>
    <div className={`fixed top-0 left-50`}>{active === 'profile' && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh} darkmode={darkmode}/>}</div>
    <div className={`fixed top-50 left-50`}>{active === 'gameRPS' && <GameRPS user={user} RPS={RPS} refresh={getGameData} darkmode={darkmode}/>}</div>
+   <div className={`fixed top-50 left-50`}>{active === 'gameBJ' && <GameBJ user={user} BJ={BJ} refresh={getGameData} darkmode={darkmode}/>}</div>
 </div>
   
  

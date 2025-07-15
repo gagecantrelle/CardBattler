@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import {Input, Checkbox} from 'antd'
 import type { CheckboxProps } from 'antd';
 import { EnterOutlined } from '@ant-design/icons'
-import DragAndDrop from "./DragAndDrop";
+import DragAndDrop from "./DragAndDropRPS";
 import axios from "axios"
 import paper from "../../../styles/paperString";
 
@@ -91,7 +91,7 @@ const gameMode: CheckboxProps['onChange'] = (e) => {
     <div className="text-red-200 rotate-90 relative right-30 top-32 tracking-tight">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
     <div className="text-blue-200 relative bottom-2.5 tracking-tight">━━━━━━━━━━━━━━━━━━</div>
     <div className="text-blue-200 relative bottom-3.5">{paper.paperString2}</div>
-    <button onClick={()=>{gameOn('start', null, null)}} className={`${darkmode ? 'lightButton': 'darkButton'} relative bottom-35 left-6 paperText`}> start game</button>
+    <button onClick={()=>{gameOn('start', null)}} className={`${darkmode ? 'lightButton': 'darkButton'} relative bottom-35 left-6 paperText`}> start game</button>
     <div className="w-10 relative bottom-30 left-6 paperText">rounds:<Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}} className="relative bottom-7 left-12" style={{border: '1px dashed rgb(6, 182, 212)'}}></Input></div>
   <Checkbox onChange={gameMode} className='relative bottom-32 left-0.5'><div className="paperText">Fast mode</div></Checkbox>
   <div className="absolute left-44 bottom-75" style={{ fontSize: '10vh' }}>📄</div>

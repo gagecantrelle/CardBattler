@@ -14,7 +14,7 @@ Pick one of three items: Rock, Paper, and Scissors, then whoever has the stronge
 -Paper > Rock
 
 -BlackJack
-Draws from a 20-card deck with 2 copies of each card, ranging from 1 to 10. The player whose
+Draws from a 36-card deck with out the king, queen, ace, or joker card, the card number ranging from 2 to 10 . The player whose
 card total value that equal to 21 or close to it. If the Value goes over 21, they lose
 
 # setup
