@@ -4,7 +4,6 @@ import "../../styles/style.css"
 import {ColorPicker, Input, Button} from 'antd';
 import { RollbackOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import paper from '../../styles/paperString'
-import { BlobOptions } from "buffer";
 
 const defaultColor = [
   {
