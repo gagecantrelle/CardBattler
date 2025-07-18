@@ -6,7 +6,7 @@ const router = express.Router()
 
 db.createDb.authenticate()
 .then(()=>{
-  console.log('✅ authenticate successfull')
+  console.log('✅ authenticate successful')
 })
 .catch((err)=>{
   console.error('❌ authenticate failed: ', err)
@@ -28,7 +28,7 @@ const users = db.createDb.define('users',{
     allowNull: false,
     // unique: true
   }, 
-  ligthOrDark:{
+  lightOrDark:{
     type: DataTypes.BOOLEAN,
     allowNull: false
   },
@@ -108,7 +108,6 @@ const gameBJ = db.createDb.define('gameBJ',{
 
 router.get('/Users/:id', (req: Request, res: Response) => {
   const {id} = req.params
-
   db.createDb.sync()
   .then(()=>{
     users.findOne({where:{google_id: id}})
@@ -168,14 +167,14 @@ router.get('/GameBJ/:id', (req: Request, res: Response) => {
 
 //when user is created also create gameBJ and gameRPS
 router.post('/CreateUser', async (req: Request, res: Response) => {
-const {user_name, google_id, ligthOrDark, google_avatar}: {user_name: String, google_id: Number, ligthOrDark: Boolean, google_avatar: String} = req.body
+const {user_name, google_id, lightOrDark, google_avatar}: {user_name: String, google_id: Number, lightOrDark: Boolean, google_avatar: String} = req.body
 
 db.createDb.sync()
 .then(async ()=>{
 await users.create({
   user_name,
   google_id,
-  ligthOrDark,
+  lightOrDark,
   cardColor: 'linear-gradient(to right, #06b6d4, #3b82f6)',
   google_avatar
 })
@@ -194,15 +193,15 @@ await users.create({
       lose: 0, 
     })
     .then(()=>{
-      res.sendStatus(200);
+      res.sendStatus(200).json({ userId: userInfo.dataValues.id});
     })
     .catch((err)=>{
-      console.error('❌ERROR CAN\'T CREATE GAMEBJ: ', err)
+      console.error('❌ERROR CAN\'T CREATE GAME_BJ: ', err)
       res.sendStatus(500)
     }) 
   })
   .catch((err)=>{
-    console.error('❌ERROR CAN\'T CREATE GAMERPS: ', err)
+    console.error('❌ERROR CAN\'T CREATE GAME_RPS: ', err)
     res.sendStatus(500)
   })
 })
@@ -218,11 +217,11 @@ await users.create({
 })
 
 router.patch('/ProfileUpdate/:id', (req: Request, res: Response) => {
-  const {user_name, ligthOrDark, cardColor, google_avatar}: {user_name: String, ligthOrDark: Boolean, cardColor: String, google_avatar: String} = req.body
+  const {user_name, lightOrDark, cardColor, google_avatar}: {user_name: String, lightOrDark: Boolean, cardColor: String, google_avatar: String} = req.body
   const {id} = req.params
   db.createDb.sync()
   .then(()=>{
-    users.update({user_name, ligthOrDark, cardColor, google_avatar},{where: {id}})
+    users.update({user_name, lightOrDark, cardColor, google_avatar},{where: {id}})
     .then(([updatedRows])=>{
       if(updatedRows === 0){
         console.warn('⚠️ No rows updated, id exist but something went wrong');
@@ -257,12 +256,12 @@ router.patch('/RPSUpdate/:id', (req: Request, res: Response) => {
       }
     })
     .catch((err)=>{
-      console.error('❌ERROR CAN\'T FIND GAMERPS TABLE TO UPDATE: ', err)
+      console.error('❌ERROR CAN\'T FIND GAME_RPS TABLE TO UPDATE: ', err)
       res.sendStatus(500)
     })
   })
   .catch((err)=>{
-    console.error('❌ERROR CAN\'T UPDATE GAMERPS TABLE: ', err)
+    console.error('❌ERROR CAN\'T UPDATE GAME_RPS TABLE: ', err)
     res.sendStatus(500)
   })
 })
@@ -283,12 +282,12 @@ router.patch('/BJUpdate/:id', (req: Request, res: Response) => {
       }
     })
     .catch((err)=>{
-      console.error('❌ERROR CAN\'T FIND GAMEBJ TABLE TO UPDATE: ', err)
+      console.error('❌ERROR CAN\'T FIND GAME_BJ TABLE TO UPDATE: ', err)
       res.sendStatus(500)
     })
   })
   .catch((err)=>{
-    console.error('❌ERROR CAN\'T UPDATE GAMEBJ TABLE: ', err)
+    console.error('❌ERROR CAN\'T UPDATE GAME_BJ TABLE: ', err)
     res.sendStatus(500)
   })
 })
@@ -312,11 +311,11 @@ router.delete('/DeleteAccount/:id', (req: Request, res: Response) => {
         })
     })
     .catch((err)=>{
-      console.error('❌ERROR CAN\'T FIND GAMEBJ TABLE', err)
+      console.error('❌ERROR CAN\'T FIND GAME_BJ TABLE', err)
       res.sendStatus(500)
       })
     .catch((err)=>{
-    console.error('❌ERROR CAN\'T FIND GAMERPS TABLE', err)
+    console.error('❌ERROR CAN\'T FIND GAME_RPS TABLE', err)
     res.sendStatus(500)
     })
   })
@@ -326,16 +325,5 @@ router.delete('/DeleteAccount/:id', (req: Request, res: Response) => {
   })
 })
 })
-// router.delete('/GameRPS', (req: Request, res: Response) => {})
-// router.delete('/GameBJ', (req: Request, res: Response) => {})
-
-
-//  db.createDb.sync()
-//.then(()=>{})
-//.catch((err)=>{
-//console.error('❌', err)
-//})
-
-
 
 export default {router, users, gameBJ, gameRPS}

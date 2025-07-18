@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./styles/style.css"
+import "./src/styles/style.css"
 import dayjs from "dayjs";
-import backGround from './styles/images/wood_Block_texture.png'
+import backGround from './src/styles/images/wood_Block_texture.png'
 
 function LogIn() {
   const [nightTime, setNightTime] = useState(false);

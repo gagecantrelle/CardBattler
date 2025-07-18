@@ -40,7 +40,7 @@ interface User {
   id: number;
   google_id: string | number;
   user_name: string | null;
-  ligthOrDark: boolean;
+  lightOrDark: boolean;
  real: boolean;
 }
 
@@ -56,7 +56,7 @@ passport.use(new GoogleStrategy(
       const userSession = {
         google_id: profile.id,
         user_name: profile.displayName,
-        ligthOrDark: true,
+        lightOrDark: true,
         google_avatar: profile.photos[0].value,
         real: data === null ? false : true
       };
@@ -66,7 +66,7 @@ passport.use(new GoogleStrategy(
       const userSession = {
         google_id: profile.id,
         user_name: profile.displayName,
-        ligthOrDark: true,
+        lightOrDark: true,
         google_avatar: profile.photos[0].value,
         real: false
       };
