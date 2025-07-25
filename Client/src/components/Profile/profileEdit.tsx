@@ -1,20 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios"
 import "../../styles/style.css"
 import {ColorPicker, Input, Button} from 'antd';
 import { RollbackOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import paper from '../../styles/paperString'
-
-const defaultColor = [
-  {
-    color: 'rgb(6, 182, 212)',
-     percent: 0,
-  },
-  {
-    color: 'rgb(59, 130, 246)',
-     percent: 100,
-  }
-]
 
 type User = {
   user_name: string,
@@ -26,9 +15,23 @@ type User = {
 };
 
 function ProfileEdit({user, edit, refresh, darkMode, colorEdit}: {user: User, edit: () => void, refresh: () => void, darkMode: boolean, colorEdit: (newColor: string) => void}) {
-const [color, setColor] = useState('')
 const [newName, setNewName] = useState('')
 const [animate, setAnimate] = useState('animate-editProfileIn')
+  const [color, setColor] = useState(()=>{
+  if(user.cardColor !== 'linear-gradient(to right, #06b6d4, #3b82f6)'){
+return user.cardColor;
+  }else{
+    return '';
+  }
+})
+const [defaultColor, setDefaultColor] = useState(()=>{
+const arr = user.cardColor.split(' ').slice(1)
+if(user.cardColor !== 'linear-gradient(to right, #06b6d4, #3b82f6)'){
+return [{color: arr[0], percent: parseFloat(arr[1].replace('%,',''))}, {color: arr[2], percent: parseFloat(arr[3].replace('%)',''))}];
+}else{
+return [{color: 'rgb(6, 182, 212)', percent: 0}, {color: 'rgb(59, 130, 246)', percent: 100}];
+}
+})
 
 const editName = (name: string): void =>{
 setNewName(name)
@@ -69,7 +72,6 @@ colorEdit(changeColor)
   console.error('❌ERROR SOMETHING IS WRONG WITH THIS ID: ', err)
 })
 }
-
 
   return (
 <div className={`${animate} left-[-44vh] border-1 border-solid w-48 h-82.5 absolute top-[5vh] bg-white bottom-10 z-0`}>
