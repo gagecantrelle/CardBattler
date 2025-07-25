@@ -1,13 +1,11 @@
 import express from 'express'
 import db from './db'
 import obj from './routes';
-import path, { dirname } from 'path';
+import path from 'path';
 import passport from 'passport';
 import { Strategy as GoogleStrategy, Profile } from 'passport-google-oauth20';
 import session from 'express-session';
 import dotenv from 'dotenv';
-import axios from 'axios';
-
 
 
 dotenv.config();
@@ -17,9 +15,6 @@ const port: number = 8080;
 const DIST_PATH = path.resolve(__dirname, '../Client/dist');
 const {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET} = process.env
 
-const isLoggedIn = (req: any, res: any, next: any) =>{
-  req.user ? next() : res.sendStatus(401)
-}
 
 app.use(express.json())
 app.use(
