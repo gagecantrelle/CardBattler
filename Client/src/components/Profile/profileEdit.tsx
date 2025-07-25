@@ -4,6 +4,7 @@ import "../../styles/style.css"
 import {ColorPicker, Input, Button} from 'antd';
 import { RollbackOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import paper from '../../styles/paperString'
+import backGround from '../../styles/images/Screenshot paper.png'
 
 type User = {
   user_name: string,
@@ -97,9 +98,13 @@ colorEdit(changeColor)
     <div className="relative left-4 h-4 w-42 bottom-84 rounded-xl" style={{ background: color !== '' ? color : 'linear-gradient(90deg, rgb(6, 182, 212) 0%, rgb(59, 130, 246) 100%)'}}></div>
     <Button onClick={()=>{update()}} className="relative left-2 bottom-83" type="text"><div className="paperText">confirm</div></Button>
 <Button onClick={()=>{editReturn()}} className="relative left-8 bottom-65" type="text"><div className="paperText">go Back</div><RollbackOutlined /></Button>
-</div>
+</div> 
   );
 }
-
+//will replace return div with this after figuring out home bar update
+{/* <div className={`${animate}`}>
+     <div className="whitespace-pre-line absolute">We hear that you want to{'\n'}update you id card, please fill in{'\n'}the boxes below.</div>
+     <img src={backGround} className="h-70 w-50"></img>
+    </div> */}
 
 export default ProfileEdit;
