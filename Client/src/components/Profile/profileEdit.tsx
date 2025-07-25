@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios"
 import "../../styles/style.css"
 import {ColorPicker, Input, Button} from 'antd';
@@ -16,7 +16,16 @@ const defaultColor = [
   }
 ]
 
-function ProfileEdit({user, edit, refresh, darkMode, colorEdit}: {user: Object, edit: void, refresh: void, darkMode: boolean, colorEdit: void}) {
+type User = {
+  user_name: string,
+  google_id: string,
+  lightOrDark: boolean,
+  cardColor: string,
+  google_avatar: string,
+  id: number
+};
+
+function ProfileEdit({user, edit, refresh, darkMode, colorEdit}: {user: User, edit: () => void, refresh: () => void, darkMode: boolean, colorEdit: (newColor: string) => void}) {
 const [color, setColor] = useState('')
 const [newName, setNewName] = useState('')
 const [animate, setAnimate] = useState('animate-editProfileIn')
@@ -72,7 +81,7 @@ colorEdit(changeColor)
 <div className="relative left-4 bottom-81 paperText">update you id card, please fill in</div>
 <div className="relative left-4 bottom-81 paperText">the boxes below.</div>
 <div className="relative left-4 bottom-81 paperText">name:</div>
-<div className="relative left-4 bottom-82.5 w-40"><Input placeholder={`${user.user_name}`} onInput={(e)=>{editName(e.target.value)}} style={{border: '1px dashed #bfdbfe', height:'25px'}}></Input></div>
+<div className="relative left-4 bottom-82.5 w-40"><Input placeholder={`${user.user_name}`} onInput={(e)=>{editName((e.target as HTMLInputElement).value)}} style={{border: '1px dashed #bfdbfe', height:'25px'}}></Input></div>
  <ColorPicker
       defaultValue={defaultColor}
       allowClear

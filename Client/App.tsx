@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate} from 'react-router-dom'; //useNavigate
 import axios from "axios"
 import "./src/styles/style.css"
@@ -19,6 +19,7 @@ const [screenHeight, setScreenHeight] = useState(window.innerHeight)
 const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 const [user, setUser] = useState<User | null>(null)
 const [darkMode, setDarkMode] = useState(true)
+//const navigate = useNavigate();
 
 const checkUser = (): void =>{
   axios.get('/api/user')

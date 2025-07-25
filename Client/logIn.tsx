@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./src/styles/style.css"
 import dayjs from "dayjs";
 import backGround from './src/styles/images/wood_Block_texture.png'

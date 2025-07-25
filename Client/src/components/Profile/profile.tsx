@@ -1,11 +1,28 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios"
 import {Button, Card, Avatar} from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import "../../styles/style.css"
 import ProfileEdit from "./profileEdit";
 
-function Profile({user, RPS, BJ, refresh, darkMode}: {user: Object, RPS: Object, BJ: Object, refresh: () => void, darkMode: Boolean}) {
+type User = {
+  user_name: string,
+  google_id: string,
+  lightOrDark: boolean,
+  cardColor: string,
+  google_avatar: string,
+  id: number
+};
+
+type Games = {
+   id: number,
+    user_id: number,
+    highScore: number,
+    win: number,
+    lose: number
+}
+
+function Profile({user, RPS, BJ, refresh, darkMode}: {user: User, RPS: Games, BJ: Games, refresh: () => void, darkMode: boolean}) {
 const [name, setName] = useState(user.user_name)
 const [edit, setEdit] = useState(false)
 const [color, setColor] =useState(user.cardColor)

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import {useNavigate} from 'react-router-dom';
+import { useEffect, useState } from "react";
 import axios from "axios"
 import "./src/styles/style.css"
 import Profile from "./src/components/Profile/profile";
@@ -16,11 +15,18 @@ type User = {
   id: number
 };
 
+type Games = {
+   id: number,
+    user_id: number,
+    highScore: number,
+    win: number,
+    lose: number
+}
+
 function Home({user, refresh, darkMode, height, width}: {user: User, refresh: () => void, darkMode: boolean, height: number, width: number}) {
-const [RPS, setRPS] = useState({})
-const [BJ, setBJ] = useState({})
+const [RPS, setRPS] = useState<Games | null>(null)
+const [BJ, setBJ] = useState<Games | null>(null)
 const [active, setActive] = useState('')
-const navigate = useNavigate();
 
 const getGameData = (): void =>{
   axios.get(`/GameRPS/${user.id}`)
@@ -42,7 +48,6 @@ const getGameData = (): void =>{
 useEffect(()=>{
 getGameData()
 },[])
-// height: `${screenHeight}px`, width: `${screenWidth}px`
   return (
 <div >
   <img src={backGround} style={{height: `${height}px`,  width: `${width}px`}} ></img>
@@ -75,8 +80,6 @@ getGameData()
    <div className={`fixed top-50 left-50`}>{active === 'gameRPS' && <GameRPS user={user} RPS={RPS} refresh={getGameData} darkMode={darkMode}/>}</div>
    <div className={`fixed top-50 left-50`}>{active === 'gameBJ' && <GameBJ user={user} BJ={BJ} refresh={getGameData} darkMode={darkMode}/>}</div>
 </div>
-  
- 
   );
 }
 
