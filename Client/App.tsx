@@ -15,8 +15,6 @@ type User = {
 };
 
 function App() {
-const [screenHeight, setScreenHeight] = useState(window.innerHeight)
-const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 const [user, setUser] = useState<User | null>(null)
 const [darkMode, setDarkMode] = useState(true)
 //const navigate = useNavigate();
@@ -54,23 +52,24 @@ const checkUser = (): void =>{
     if(user === null || user === undefined){
 checkUser()
     }
-   const screenCheck = () =>{
-    const curHeight = window.innerHeight
-    const curWidth = window.innerWidth
+  //  const screenCheck = () =>{
+  //   const curHeight = window.innerHeight
+  //   const curWidth = window.innerWidth
 
-    if(curHeight !== screenHeight){
-      setScreenHeight(curHeight)
-    }
-    if(curWidth !== window.innerWidth){
-      setScreenWidth(curWidth)
-    }
-   }
+  //   if(curHeight !== screenHeight){
+  //     setScreenHeight(curHeight)
+  //     setNewHeight('100dvh')
+  //   }
+  //   if(curWidth !== window.innerWidth){
+  //     setScreenWidth(curWidth)
+  //   }
+  //  }
 
-   window.addEventListener("resize", screenCheck)
+  //  window.addEventListener("resize", screenCheck)
 
-   return()=>{
-    window.removeEventListener("resize", screenCheck)
-   }
+  //  return()=>{
+  //   window.removeEventListener("resize", screenCheck)
+  //  }
   },[checkUser])
 
   return (
@@ -78,7 +77,7 @@ checkUser()
  <Route path="/" element={<Navigate to="/login" replace />} />
  {user !== null && <Route path="/login" element={<Navigate to="/home" replace />} />}
  <Route path='/login' element={<LogIn />} errorElement={<div>404 Not Found</div>} />
- <Route path='/Home' element={<Home user={user} refresh={checkUser} darkMode={darkMode} height={screenHeight} width={screenWidth}/>} errorElement={<div>404 Not Found</div>}/>
+ <Route path='/Home' element={<Home user={user} refresh={checkUser} darkMode={darkMode}/>} errorElement={<div>404 Not Found</div>}/>
   </Routes>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import axios from "axios"
 import "./src/styles/style.css"
 import Profile from "./src/components/Profile/profile";
@@ -23,10 +23,13 @@ type Games = {
     lose: number
 }
 
-function Home({user, refresh, darkMode, height, width}: {user: User, refresh: () => void, darkMode: boolean, height: number, width: number}) {
+function Home({user, refresh, darkMode}: {user: User, refresh: () => void, darkMode: boolean}) {
 const [RPS, setRPS] = useState<Games | null>(null)
 const [BJ, setBJ] = useState<Games | null>(null)
 const [active, setActive] = useState('')
+const [hideButtons, setHideButtons] = useState(true)
+const [pendingAnimation, setPendingAnimation] = useState(false)
+
 
 const getGameData = (): void =>{
   axios.get(`/GameRPS/${user.id}`)
@@ -47,19 +50,29 @@ const getGameData = (): void =>{
 
 useEffect(()=>{
 getGameData()
+
 },[])
   return (
 <div >
-  <img src={backGround} style={{height: `${height}px`,  width: `${width}px`}} ></img>
- <div className={`bg-linear-to-r from-cyan-500 to-blue-500 w-50 fixed top-0 left-0 z-1`} style={{  height: `${height}px`}}>
-    <button onClick={()=>{ 
+  <img src={backGround} style={{height: '100dvh',  width: '100dvw'}} ></img>
+ <div onAnimationStart={()=>{setHideButtons(true)}} className={`bg-linear-to-r from-cyan-500 to-blue-500 fixed top-0 left-0 z-1 ${pendingAnimation === false ? 'animate-homeIn' : 'animate-homeOut'}`} onAnimationEnd={()=>{setTimeout(() => {
+setHideButtons(false)
+ }, 25);}}>
+  {hideButtons === false && <>
+  <button onClick={()=>{ 
      if(active === 'profile'){
-      setActive('')
+      setPendingAnimation(false)
+      setTimeout(() => {
+        setActive('')
+      }, 1000);
      }else{
-      setActive('profile')
+      setPendingAnimation(true)
+      setTimeout(() => {
+        setActive('profile')
+      }, 1000);
      }
-    }}className={`top-27 left-18 absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'}`}>Profile</button>
-    <button className={`top-47 left-18 absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'}`}
+    }}className={`top-27 left-10 absolute font-[bubblegum] ${darkMode ? 'lightButton' : 'darkButton'} ${active !== ''? 'hidden' : ''}`}>Profile</button>
+    <button className={`top-47 left-10 absolute font-[bubblegum] ${darkMode ? 'lightButton' : 'darkButton'} ${active !== '' ? 'hidden' : ''}`}
     onClick={()=>{
       if(active === 'gameRPS'){
         setActive('')
@@ -73,10 +86,15 @@ getGameData()
      }else{
       setActive('gameBJ')
      } 
-    }}className={`top-67 left-18 absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'}`}>Game BJ</button>
-      
+    }}className={`top-67 left-10 absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'} ${active !== '' ? 'hidden' : ''}`}>Game BJ</button>
+    <button onClick={()=>{ 
+      setActive('') 
+      setPendingAnimation(false)
+      }}className={`top-0 left-3 absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'} ${active !== '' && hideButtons === false ? '' : 'hidden'}`}>Home</button>
+  </>}
+    
    </div>
-   <div className={`fixed top-0 left-50`}>{active === 'profile' && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh} darkMode={darkMode}/>}</div>
+   <div className={`fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]`}>{active === 'profile' && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh} darkMode={darkMode}/>}</div>
    <div className={`fixed top-50 left-50`}>{active === 'gameRPS' && <GameRPS user={user} RPS={RPS} refresh={getGameData} darkMode={darkMode}/>}</div>
    <div className={`fixed top-50 left-50`}>{active === 'gameBJ' && <GameBJ user={user} BJ={BJ} refresh={getGameData} darkMode={darkMode}/>}</div>
 </div>

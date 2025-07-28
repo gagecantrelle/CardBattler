@@ -46,7 +46,7 @@ const colorEdit = (newColor: string): void =>{
 }
 
   return (
-<div className="absolute left-80 top-50">
+<div>
     <Card cover={<div className={`${darkMode ? 'lightName': 'darkName'} h-15 text-4xl`} style={{width: '600px', background: color}}>
       <p className={`absolute top-4 ${darkMode ? 'light': 'dark'}`}>{user.user_name}</p>
       {edit === false && <Button onClick={()=>{editMode()}} className="relative left-135"><EditOutlined /></Button>}
@@ -71,10 +71,10 @@ const colorEdit = (newColor: string): void =>{
 </div>
 <Avatar key={user.google_avatar} className="absolute left-90 bottom-32" size={150} src={user.google_avatar} crossOrigin="anonymous"/>
 </Card>
-{edit === true && <ProfileEdit user={user} edit={editMode} refresh={refresh} darkMode={darkMode} colorEdit={colorEdit}/>}
+{edit === true && <div className="fixed top-[-5vh]"><ProfileEdit user={user} edit={editMode} refresh={refresh} darkMode={darkMode} colorEdit={colorEdit} /></div>}
   </div>
   );
 }
 
-
+//className="absolute left-80 top-50"
 export default Profile;

@@ -51,7 +51,7 @@ if(animate === 'animate-editProfileIn'){
 
   setTimeout(() => {
     edit()
-  }, 3000);
+  }, 500);
 }
 
 const update = (): void =>{
@@ -75,7 +75,7 @@ colorEdit(changeColor)
 }
 
   return (
-<div className={`${animate} left-[-44vh] border-1 border-solid w-48 h-82.5 absolute top-[5vh] bg-white bottom-10 z-0`}>
+<div className={`${animate} border-1 border-solid w-48 h-82.5 absolute top-[5vh] bg-white bottom-10 z-0`}>
 <div className="relative left-4 top-4 paperText">Info Update</div>
 <div className="text-blue-200 tracking-tight">━━━━━━━━━━━━</div>
 <div className="text-red-200 rotate-90 relative right-20 top-9 tracking-tight">━━━━━━━━━━━━━━━━━━━━━</div>
