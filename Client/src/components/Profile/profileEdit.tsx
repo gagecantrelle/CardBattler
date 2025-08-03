@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios"
 import "../../styles/style.css"
 import {ColorPicker, Input, Button} from 'antd';
 import { RollbackOutlined, ArrowLeftOutlined } from '@ant-design/icons'
-import paper from '../../styles/paperString'
-import backGround from '../../styles/images/Screenshot paper.png'
+import paper from '../../styles/images/Screenshot paper.png'
 
 type User = {
   user_name: string,
@@ -90,41 +89,11 @@ colorEdit(changeColor)
      style={{border: '1px dashed #bfdbfe'}} />
      <div className="paperText absolute left-12 top-25"><ArrowLeftOutlined />Pick a color</div>
      <div className="absolute left-4 h-4 w-42 top-32 rounded-xl" style={{ background: color !== '' ? color : 'linear-gradient(90deg, rgb(6, 182, 212) 0%, rgb(59, 130, 246) 100%)'}}></div>
-      <img src={backGround} className="h-80 w-50"></img>
+      <img src={paper} className="h-80 w-50"></img>
      <Button onClick={()=>{update()}} className="absolute left-1 top-[-158px]" type="text"><div className="paperText">confirm</div></Button>
      <Button onClick={()=>{editReturn()}} className="absolute left-12 top-[-36px]" type="text"><div className="paperText">go Back</div><RollbackOutlined /></Button>
     </div> 
   );
 }
-//will replace return div with this after figuring out home bar update
-{/* <div className={`${animate}`}>
-     <div className="whitespace-pre-line absolute">We hear that you want to{'\n'}update you id card, please fill in{'\n'}the boxes below.</div>
-     <img src={backGround} className="h-70 w-50"></img>
-    </div> */}
-
-//     <div className={`${animate} border-1 border-solid w-48 h-82.5 absolute top-[5vh] bg-white bottom-10 z-0`}>
-// <div className="relative left-4 top-4 paperText">Info Update</div>
-// <div className="text-blue-200 tracking-tight">━━━━━━━━━━━━</div>
-// <div className="text-red-200 rotate-90 relative right-20 top-9 tracking-tight">━━━━━━━━━━━━━━━━━━━━━</div>
-// <div className="text-blue-200 relative bottom-8">{paper.paperString3}</div>
-// <div className="relative left-4 bottom-81 paperText">We hear that you want to</div>
-// <div className="relative left-4 bottom-81 paperText">update you id card, please fill in</div>
-// <div className="relative left-4 bottom-81 paperText">the boxes below.</div>
-// <div className="relative left-4 bottom-81 paperText">name:</div>
-// <div className="relative left-4 bottom-82.5 w-40"><Input placeholder={`${user.user_name}`} onInput={(e)=>{editName((e.target as HTMLInputElement).value)}} style={{border: '1px dashed #bfdbfe', height:'25px'}}></Input></div>
-//  <ColorPicker
-//       defaultValue={defaultColor}
-//       allowClear
-//       mode="gradient"
-//       onChangeComplete={(color) => {
-//         editColor(color.toCssString());
-//       }}
-//     className="relative left-4 bottom-78"
-//     style={{border: '1px dashed #bfdbfe'}} />
-//     <div className="paperText relative left-12 bottom-85"><ArrowLeftOutlined />Pick a color</div>
-//     <div className="relative left-4 h-4 w-42 bottom-84 rounded-xl" style={{ background: color !== '' ? color : 'linear-gradient(90deg, rgb(6, 182, 212) 0%, rgb(59, 130, 246) 100%)'}}></div>
-//     <Button onClick={()=>{update()}} className="relative left-2 bottom-83" type="text"><div className="paperText">confirm</div></Button>
-// <Button onClick={()=>{editReturn()}} className="relative left-8 bottom-65" type="text"><div className="paperText">go Back</div><RollbackOutlined /></Button>
-// </div> 
 
 export default ProfileEdit;

@@ -5,6 +5,7 @@ import Profile from "./src/components/Profile/profile";
 import GameRPS from "./src/components/game/RPS/RPS";
 import GameBJ from "./src/components/game/BJ/BJ";
 import backGround from './src/styles/images/wood_Block_texture.png'
+import { HomeOutlined } from "@ant-design/icons"
 
 type User = {
   user_name: string,
@@ -102,7 +103,7 @@ setHideButtons(false)
     <button onClick={()=>{ 
       setActive('') 
       setPendingAnimation(false)
-      }}className={`top-0 left-3 absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'} ${active !== '' && hideButtons === false ? '' : 'hidden'}`}>Home</button>
+      }}className={`top-1 left-[1.5vw] absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'} ${active !== '' && hideButtons === false ? '' : 'hidden'}`}><HomeOutlined style={{ fontSize: '5vh' }}/></button>
   </>}
     
    </div>
@@ -112,6 +113,5 @@ setHideButtons(false)
 </div>
   );
 }
-
 
 export default Home;
