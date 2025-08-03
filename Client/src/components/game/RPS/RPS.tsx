@@ -1,13 +1,13 @@
 import { useState } from "react";
 import "../../../styles/style.css"
-import { DndProvider, useDrag, useDrop} from 'react-dnd'
+import { DndProvider} from 'react-dnd'
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {Input, Checkbox} from 'antd'
 import type { CheckboxProps } from 'antd';
 import { EnterOutlined } from '@ant-design/icons'
 import DragAndDrop from "./DragAndDropRPS";
 import axios from "axios"
-//import paper from "../../../styles/paperString";
+
 import paper from '../../../styles/images/Screenshot paper.png'
 
 type Rps ={
@@ -113,20 +113,5 @@ const gameMode: CheckboxProps['onChange'] = (e) => {
  </DndProvider>
   );
 }
-
-// <div className="bg-white fixed w-70.5 h-113.5 left-[93vh] bottom-16 border-1 border-solid">
-//     <div className="text-red-200 rotate-90 relative right-30 top-32 tracking-tight">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-//     <div className="text-blue-200 relative bottom-2.5 tracking-tight">━━━━━━━━━━━━━━━━━━</div>
-//     <div className="text-blue-200 relative bottom-3.5">{paper.paperString2}</div>
-//     <button onClick={()=>{gameOn('start', null)}} className={`${darkMode ? 'lightButton': 'darkButton'} relative bottom-35 left-6 paperText`}> start game</button>
-//     <div className="w-10 relative bottom-30 left-6 paperText">rounds:<Input placeholder="3" onInput={(e)=>{howManyRounds(e.target.value)}} className="relative bottom-7 left-12" style={{border: '1px dashed rgb(6, 182, 212)'}}></Input></div>
-//   <Checkbox onChange={gameMode} className='relative bottom-32 left-0.5'><div className="paperText">Fast mode</div></Checkbox>
-//   <div className="absolute left-44 bottom-75" style={{ fontSize: '10vh' }}>📄</div>
-// <div className="absolute left-26 bottom-55" style={{ fontSize: '10vh' }}>🪨</div>
-// <div className="absolute left-8 bottom-75" style={{ fontSize: '10vh' }}>✂️</div>
-// <EnterOutlined style={{ fontSize: '10vh' }} className="absolute bottom-65 left-13 z-6" rotate={105}/>
-// <EnterOutlined style={{ fontSize: '10vh' }} className="absolute bottom-89 left-29 z-6" rotate={220}/>
-// <EnterOutlined style={{ fontSize: '10vh' }} className="absolute bottom-62.5 left-45.5 z-6" rotate={-9}/>
-//   </div>>
 
 export default GameRPS;

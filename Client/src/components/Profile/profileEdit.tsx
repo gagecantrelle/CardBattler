@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios"
 import "../../styles/style.css"
-import {ColorPicker, Input, Button} from 'antd';
+import {ColorPicker, Input} from 'antd';
 import { RollbackOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import paper from '../../styles/images/Screenshot paper.png'
 
@@ -90,10 +90,11 @@ colorEdit(changeColor)
      <div className="paperText absolute left-12 top-25"><ArrowLeftOutlined />Pick a color</div>
      <div className="absolute left-4 h-4 w-42 top-32 rounded-xl" style={{ background: color !== '' ? color : 'linear-gradient(90deg, rgb(6, 182, 212) 0%, rgb(59, 130, 246) 100%)'}}></div>
       <img src={paper} className="h-80 w-50"></img>
-     <Button onClick={()=>{update()}} className="absolute left-1 top-[-158px]" type="text"><div className="paperText">confirm</div></Button>
-     <Button onClick={()=>{editReturn()}} className="absolute left-12 top-[-36px]" type="text"><div className="paperText">go Back</div><RollbackOutlined /></Button>
+     <button onClick={()=>{update()}} className={`${darkMode ? 'lightButtonNoFont': 'darkButtonNoFont'} absolute left-4 top-37 paperText `}>confirm</button>
+     <button onClick={()=>{editReturn()}} className={`${darkMode ? 'lightButtonNoFont': 'darkButtonNoFont'} absolute left-32 top-71.5 paperText`}>go Back <RollbackOutlined /></button>
     </div> 
   );
 }
-
+{/* <button onClick={()=>{update()}} className="absolute left-1 top-[-158px]" type="text"><div className="paperText">confirm</div></button>
+     <button onClick={()=>{editReturn()}} className="absolute left-12 top-[-36px]" type="text"><div className="paperText">go Back</div><RollbackOutlined /></button> */}
 export default ProfileEdit;
