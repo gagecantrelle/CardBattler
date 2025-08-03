@@ -75,16 +75,28 @@ setHideButtons(false)
     <button className={`top-47 left-10 absolute font-[bubblegum] ${darkMode ? 'lightButton' : 'darkButton'} ${active !== '' ? 'hidden' : ''}`}
     onClick={()=>{
       if(active === 'gameRPS'){
+      setPendingAnimation(false)
+      setTimeout(() => {
         setActive('')
+      }, 1000);
        }else{
+        setPendingAnimation(true)
+        setTimeout(() => {
         setActive('gameRPS')
+      }, 1000);
        }
     }}>Game RPS</button>
       <button onClick={()=>{ 
      if(active === 'BJ'){
+      setPendingAnimation(false)
+      setTimeout(() => {
       setActive('')
+      }, 1000);
      }else{
+      setPendingAnimation(true)
+      setTimeout(() => {
       setActive('gameBJ')
+      }, 1000);
      } 
     }}className={`top-67 left-10 absolute font-[bubblegum] ${darkMode ? 'lightButton': 'darkButton'} ${active !== '' ? 'hidden' : ''}`}>Game BJ</button>
     <button onClick={()=>{ 
@@ -95,7 +107,7 @@ setHideButtons(false)
     
    </div>
    <div className={`fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]`}>{active === 'profile' && <Profile user={user} RPS={RPS} BJ={BJ} refresh={refresh} darkMode={darkMode}/>}</div>
-   <div className={`fixed top-50 left-50`}>{active === 'gameRPS' && <GameRPS user={user} RPS={RPS} refresh={getGameData} darkMode={darkMode}/>}</div>
+   <div className={`fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]`}>{active === 'gameRPS' && <GameRPS user={user} RPS={RPS} refresh={getGameData} darkMode={darkMode}/>}</div>
    <div className={`fixed top-50 left-50`}>{active === 'gameBJ' && <GameBJ user={user} BJ={BJ} refresh={getGameData} darkMode={darkMode}/>}</div>
 </div>
   );
